@@ -1,0 +1,33 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Ues</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Titre</th>
+      <th>Description</th>
+      <th>Type</th>
+      <th>Lieu</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @ues.each do |ue| %>
+      <tr>
+        <td><%= ue.titre %></td>
+        <td><%= ue.description %></td>
+        <td><%= ue.type %></td>
+        <td><%= ue.lieu %></td>
+        <td><%= link_to 'Show', ue %></td>
+        <td><%= link_to 'Edit', edit_ue_path(ue) %></td>
+        <td><%= link_to 'Destroy', ue, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Ue', new_ue_path %>

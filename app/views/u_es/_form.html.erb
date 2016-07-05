@@ -1,0 +1,33 @@
+<%= form_for(@ue) do |f| %>
+  <% if @ue.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@ue.errors.count, "error") %> prohibited this ue from being saved:</h2>
+
+      <ul>
+      <% @ue.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :titre %><br>
+    <%= f.text_field :titre %>
+  </div>
+  <div class="field">
+    <%= f.label :description %><br>
+    <%= f.text_field :description %>
+  </div>
+  <div class="field">
+    <%= f.label :type %><br>
+    <%= f.text_field :type %>
+  </div>
+  <div class="field">
+    <%= f.label :lieu %><br>
+    <%= f.text_field :lieu %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

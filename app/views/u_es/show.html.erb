@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Titre:</strong>
+  <%= @ue.titre %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @ue.description %>
+</p>
+
+<p>
+  <strong>Type:</strong>
+  <%= @ue.type %>
+</p>
+
+<p>
+  <strong>Lieu:</strong>
+  <%= @ue.lieu %>
+</p>
+
+<%= link_to 'Edit', edit_ue_path(@ue) %> |
+<%= link_to 'Back', ues_path %>
