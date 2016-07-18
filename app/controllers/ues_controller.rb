@@ -1,4 +1,4 @@
-class UEsController < ApplicationController
+class UesController < ApplicationController
   before_action :set_ue, only: [:show, :edit, :update, :destroy]
 
   # GET /ues

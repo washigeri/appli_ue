@@ -10,19 +10,46 @@
       </ul>
     </div>
   <% end %>
-
+    <div class="field">
+      <%= f.label :ue_id %><br>
+      <%= collection_select(:cour, :ue_id, Ue.all, :id, :titre) %>
+    </div>
   <div class="field">
     <%= f.label :titre %><br>
     <%= f.text_field :titre %>
   </div>
   <div class="field">
-    <%= f.label :description %><br>
-    <%= f.text_field :description %>
+    <%= f.label :objectif %><br>
+    <%= f.text_area :objectif %>
+  </div>
+  <div class="field">
+    <%= f.label :contenu %>
+    <%= f.text_area :contenu %>
   </div>
   <div class="field">
     <%= f.label :type %><br>
     <%= f.text_field :type %>
   </div>
+    <div class="field">
+      <%= f.label :decoupage %><br>
+      <%= f.text_field :decoupage %>
+    </div>
+    <div class="field">
+      <%= f.label :evaluation1 %><br>
+      <%= f.text_field :evaluation1 %>
+    </div>
+    <div class="field">
+      <%= f.label :evaluation2 %><br>
+      <%= f.text_field :evaluation2 %>
+    </div>
+    <div class="field">
+      <%= f.label :coeff %><br>
+      <%= f.text_field :coeff %>
+    </div>
+    <div class="field">
+      <%= f.label :bibliographie %><br>
+      <%= f.text_area :bibliographie %>
+    </div>
   <div class="actions">
     <%= f.submit %>
   </div>

@@ -11,21 +11,26 @@
     </div>
   <% end %>
 
+    <div class="field">
+      <%= f.label :semestre_id %>
+      <%= collection_select(:ue, :semestre_id,  Semestre.all, :id, :numero) %>
+    </div>
+
   <div class="field">
     <%= f.label :titre %><br>
     <%= f.text_field :titre %>
   </div>
   <div class="field">
-    <%= f.label :description %><br>
-    <%= f.text_field :description %>
-  </div>
-  <div class="field">
-    <%= f.label :type %><br>
-    <%= f.text_field :type %>
+    <%= f.label :objectif %><br>
+    <%= f.text_field :objectif %>
   </div>
   <div class="field">
     <%= f.label :lieu %><br>
-    <%= f.text_field :lieu %>
+    <%= f.select :lieu, ['Evry', 'Strasbourg', 'Evry + Strasbourg'] %>
+  </div>
+  <div class="field">
+    <%= f.label :prerequis %><br>
+    <%= f.text_field :prerequis %>
   </div>
   <div class="actions">
     <%= f.submit %>
