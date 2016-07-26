@@ -4,7 +4,7 @@ class UesController < ApplicationController
   # GET /ues
   # GET /ues.json
   def index
-    @ues = Ue.all
+    @ues = Ue.order(:semestre_id).order(:titre)
   end
 
   # GET /ues/1
@@ -28,7 +28,7 @@ class UesController < ApplicationController
 
     respond_to do |format|
       if @ue.save
-        format.html { redirect_to @ue, notice: 'Ue was successfully created.' }
+        format.html { redirect_to @ue, success: 'Ue was successfully created.' }
         format.json { render :show, status: :created, location: @ue }
       else
         format.html { render :new }
@@ -42,7 +42,7 @@ class UesController < ApplicationController
   def update
     respond_to do |format|
       if @ue.update(ue_params)
-        format.html { redirect_to @ue, notice: 'Ue was successfully updated.' }
+        format.html { redirect_to @ue, success: 'Ue was successfully updated.' }
         format.json { render :show, status: :ok, location: @ue }
       else
         format.html { render :edit }
@@ -56,7 +56,7 @@ class UesController < ApplicationController
   def destroy
     @ue.destroy
     respond_to do |format|
-      format.html { redirect_to ues_url, notice: 'Ue was successfully destroyed.' }
+      format.html { redirect_to ues_url, success: 'Ue was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
@@ -69,6 +69,6 @@ class UesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def ue_params
-      params.require(:ue).permit(:titre, :description, :type, :lieu)
+      params.require(:ue).permit(:titre, :objectif, :lieu, :prerequis, :semestre_id)
     end
 end

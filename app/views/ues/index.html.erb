@@ -5,10 +5,11 @@
 <table>
   <thead>
     <tr>
+      <th>Semestre</th>
       <th>Titre</th>
-      <th>Description</th>
-      <th>Type</th>
+      <th>Objectif</th>
       <th>Lieu</th>
+      <th>Prérequis</th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -16,6 +17,7 @@
   <tbody>
     <% @ues.each do |ue| %>
       <tr>
+        <td><%= ue.semestre.numero %></td>
         <td><%= ue.titre %></td>
         <td><%= ue.objectif %></td>
         <td><%= ue.prerequis %></td>

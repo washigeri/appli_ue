@@ -4,7 +4,7 @@ class RubriquesController < ApplicationController
   # GET /rubriques
   # GET /rubriques.json
   def index
-    @rubriques = Rubrique.all
+    @rubriques = Rubrique.order(:cour_id).order(:titre)
   end
 
   # GET /rubriques/1
@@ -28,7 +28,7 @@ class RubriquesController < ApplicationController
 
     respond_to do |format|
       if @rubrique.save
-        format.html { redirect_to @rubrique, notice: 'Rubrique was successfully created.' }
+        format.html { redirect_to @rubrique, success: 'Rubrique was successfully created.' }
         format.json { render :show, status: :created, location: @rubrique }
       else
         format.html { render :new }
@@ -42,7 +42,7 @@ class RubriquesController < ApplicationController
   def update
     respond_to do |format|
       if @rubrique.update(rubrique_params)
-        format.html { redirect_to @rubrique, notice: 'Rubrique was successfully updated.' }
+        format.html { redirect_to @rubrique, success: 'Rubrique was successfully updated.' }
         format.json { render :show, status: :ok, location: @rubrique }
       else
         format.html { render :edit }
@@ -56,7 +56,7 @@ class RubriquesController < ApplicationController
   def destroy
     @rubrique.destroy
     respond_to do |format|
-      format.html { redirect_to rubriques_url, notice: 'Rubrique was successfully destroyed.' }
+      format.html { redirect_to rubriques_url, success: 'Rubrique was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
@@ -69,6 +69,6 @@ class RubriquesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def rubrique_params
-      params.require(:rubrique).permit(:titre, :body)
+      params.require(:rubrique).permit(:titre, :objectif, :contenu, :cour_id)
     end
 end

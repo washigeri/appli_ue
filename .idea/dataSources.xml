@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="DataSourceManagerImpl" format="xml" hash="3324885366">
+  <component name="DataSourceManagerImpl" format="xml" hash="1195933200">
     <data-source source="LOCAL" name="Rails appli_ue: development" uuid="07acace6-5ce1-4dbf-acc9-01ea11374c44">
       <driver-ref>postgresql</driver-ref>
       <synchronize>true</synchronize>
@@ -11,6 +11,14 @@
       <explain-plan-config>
         <provider>com.intellij.database.plan.ExplainPlanProvider.NullExplainPlanProvider</provider>
       </explain-plan-config>
+      <libraries>
+        <library>
+          <url>file://$APPLICATION_CONFIG_DIR$/jdbc-drivers/postgresql-driver-license.txt</url>
+        </library>
+        <library>
+          <url>file://$APPLICATION_CONFIG_DIR$/jdbc-drivers/postgresql-9.4-1201.jdbc4.jar</url>
+        </library>
+      </libraries>
     </data-source>
     <data-source source="LOCAL" name="Rails appli_ue: test" uuid="84664010-0129-441e-9759-6dda90ff7050">
       <driver-ref>postgresql</driver-ref>
@@ -22,6 +30,14 @@
       <explain-plan-config>
         <provider>com.intellij.database.plan.ExplainPlanProvider.NullExplainPlanProvider</provider>
       </explain-plan-config>
+      <libraries>
+        <library>
+          <url>file://$APPLICATION_CONFIG_DIR$/jdbc-drivers/postgresql-driver-license.txt</url>
+        </library>
+        <library>
+          <url>file://$APPLICATION_CONFIG_DIR$/jdbc-drivers/postgresql-9.4-1201.jdbc4.jar</url>
+        </library>
+      </libraries>
     </data-source>
     <data-source source="LOCAL" name="Rails appli_ue: production" uuid="4b504373-35a7-4da6-9404-da37d0b8bcd3">
       <driver-ref>postgresql</driver-ref>
@@ -30,6 +46,14 @@
       <remarks>$PROJECT_DIR$/config/database.yml</remarks>
       <jdbc-driver>org.postgresql.Driver</jdbc-driver>
       <jdbc-url>jdbc:postgresql:appli_ue_production</jdbc-url>
+      <libraries>
+        <library>
+          <url>file://$APPLICATION_CONFIG_DIR$/jdbc-drivers/postgresql-driver-license.txt</url>
+        </library>
+        <library>
+          <url>file://$APPLICATION_CONFIG_DIR$/jdbc-drivers/postgresql-9.4-1201.jdbc4.jar</url>
+        </library>
+      </libraries>
     </data-source>
   </component>
 </project>

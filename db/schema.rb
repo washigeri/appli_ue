@@ -20,7 +20,7 @@ ActiveRecord::Schema.define(version: 20160705160723) do
     t.string   "titre"
     t.string   "objectif"
     t.string   "contenu"
-    t.string   "type"
+    t.string   "genre"
     t.string   "decoupage"
     t.string   "evaluation1"
     t.string   "evaluation2"
@@ -56,7 +56,7 @@ ActiveRecord::Schema.define(version: 20160705160723) do
     t.string   "lieu"
     t.string   "prerequis"
     t.integer  "semestre_id"
-    t.string   "prof_resp" #temporaire en attendant d'avoir la base de donnée conetenant les users
+    t.string   "prof_resp"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
   end

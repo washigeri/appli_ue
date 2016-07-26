@@ -4,7 +4,7 @@ class CreateCours < ActiveRecord::Migration
       t.string :titre
       t.string :objectif
       t.string :contenu
-      t.string :type
+      t.string :genre
       t.string :decoupage
       t.string :evaluation1
       t.string :evaluation2

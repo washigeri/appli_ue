@@ -4,10 +4,18 @@
   <strong>Titre:</strong>
   <%= @rubrique.titre %>
 </p>
+<p>
+  <strong>Cour:</strong>
+  <%= @rubrique.cour.titre %>
+</p>
 
 <p>
-  <strong>Body:</strong>
-  <%= @rubrique.body %>
+  <strong>Contenu:</strong>
+  <%= @rubrique.contenu %>
+</p>
+<p>
+  <strong>Objectif:</strong>
+  <%= @rubrique.objectif %>
 </p>
 
 <%= link_to 'Edit', edit_rubrique_path(@rubrique) %> |

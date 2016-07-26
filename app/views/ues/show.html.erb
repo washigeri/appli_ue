@@ -1,12 +1,15 @@
 <p id="notice"><%= notice %></p>
-
+<p>
+  <strong>Semestre:</strong>
+  <%= @ue.semestre.numero %>
+</p>
 <p>
   <strong>Titre:</strong>
   <%= @ue.titre %>
 </p>
 
 <p>
-  <strong>Description:</strong>
+  <strong>Objectif:</strong>
   <%= @ue.objectif %>
 </p>
 
@@ -14,6 +17,10 @@
 <p>
   <strong>Lieu:</strong>
   <%= @ue.lieu %>
+</p>
+<p>
+  <strong>Prérequis:</strong>
+  <%= @ue.prerequis %>
 </p>
 
 <%= link_to 'Edit', edit_ue_path(@ue) %> |

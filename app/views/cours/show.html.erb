@@ -4,16 +4,47 @@
   <strong>Titre:</strong>
   <%= @cour.titre %>
 </p>
+<p>
+  <strong>UE:</strong>
+  <%= @cour.ue.titre %>
+</p>
 
 <p>
-  <strong>Description:</strong>
-  <%= @cour.description %>
+  <strong>Objectif:</strong>
+  <%= @cour.objectif %>
+</p>
+
+<p>
+  <strong>Contenu:</strong>
+  <%= @cour.contenu %>
 </p>
 
 <p>
   <strong>Type:</strong>
-  <%= @cour.type %>
+  <%= @cour.genre %>
 </p>
+<p>
+  <strong>Découpage:</strong>
+  <%= @cour.decoupage %>
+</p>
+<p>
+  <strong>Évaluation 1:</strong>
+  <%= @cour.evaluation1 %>
+</p>
+<p>
+  <strong>Évaluation 2:</strong>
+  <%= @cour.evaluation2 %>
+</p>
+<p>
+  <strong>Coefficient:</strong>
+  <%= @cour.coeff %>
+</p>
+
+<p>
+  <strong>Bibliographie:</strong>
+  <%= @cour.bibliographie %>
+</p>
+
 
 <%= link_to 'Edit', edit_cour_path(@cour) %> |
 <%= link_to 'Back', cours_path %>
