@@ -4,7 +4,16 @@ class UesController < ApplicationController
   # GET /ues
   # GET /ues.json
   def index
-    @ues = Ue.order(:semestre_id).order(:titre)
+    if params[:semestres].present?
+      @ues = Ue.where("semestre_id IN (?)", params[:semestres]).order(:semestre_id).order(:titre)
+    else
+      @ues = Ue.order(:semestre_id).order(:titre)
+      end
+  end
+
+  def index_semestre
+    @semestre = Semestre.find(params[:semestre_id])
+    @ues = @semestre.ues.order(:titre)
   end
 
   # GET /ues/1

@@ -4,7 +4,16 @@ class RubriquesController < ApplicationController
   # GET /rubriques
   # GET /rubriques.json
   def index
-    @rubriques = Rubrique.order(:cour_id).order(:titre)
+    if params[:cours].present?
+      @rubriques = Rubrique.where("cour_id IN (?)", params[:cours]).order(:cour_id).order(:titre)
+    else
+      @rubriques = Rubrique.order(:cour_id).order(:titre)
+    end
+  end
+
+  def index_module
+    @cour = Cour.find(params[:cour_id])
+    @rubriques = @cour.rubriques.order(:titre)
   end
 
   # GET /rubriques/1

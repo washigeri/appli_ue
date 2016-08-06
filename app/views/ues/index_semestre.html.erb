@@ -1,0 +1,33 @@
+<h1>Liste des UEs du <%= @semestre.numero %></h1>
+
+<table>
+  <thead>
+  <tr>
+    <th>Titre</th>
+    <th>Objectif</th>
+    <th>Lieu</th>
+    <th>Prérequis</th>
+    <th colspan="3"></th>
+  </tr>
+  </thead>
+
+  <tbody>
+  <% @ues.each do |ue| %>
+      <tr>
+        <td><%= ue.titre %></td>
+        <td><%= ue.objectif %></td>
+        <td><%= ue.prerequis %></td>
+        <td><%= ue.lieu %></td>
+        <td><%= link_to 'Voir', ue %></td>
+        <td><%= link_to 'Éditer', edit_ue_path(ue) %></td>
+        <td><%= link_to 'Supprimer', ue, method: :delete, data: { confirm: 'Êtes-vous sûr ?' } %></td>
+        <td><%= link_to 'Voir les modules', cours_path(:ues => ue.id.to_s) %></td>
+      </tr>
+  <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'Nouvelle UE', new_ue_path %>
+<%= link_to 'Retour', semestre_path(@semestre) %>

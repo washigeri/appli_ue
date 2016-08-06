@@ -1,4 +1,4 @@
-<%= form_for(@rubrique) do |f| %>
+<%= bootstrap_form_for(@rubrique, inline_errors: false) do |f| %>
   <% if @rubrique.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@rubrique.errors.count, "error") %> prohibited this rubrique from being saved:</h2>
@@ -11,22 +11,18 @@
     </div>
   <% end %>
     <div class="field">
-      <%= f.label :cour_id %><br>
-      <%= collection_select(:rubrique, :cour_id, Cour.all, :id, :titre) %>
+      <%= f.collection_select(:cour_id, Cour.all, :id, :titre) %>
     </div>
   <div class="field">
-    <%= f.label :titre %><br>
     <%= f.text_field :titre %>
   </div>
   <div class="field">
-    <%= f.label :contenu %><br>
     <%= f.text_area :contenu %>
   </div>
     <div class="field">
-      <%= f.label :objectif %><br>
       <%= f.text_area :objectif %>
     </div>
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit 'Valider' %>
   </div>
 <% end %>

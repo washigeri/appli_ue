@@ -1,4 +1,4 @@
-<%= bootstrap_form_for(@ue) do |f| %>
+<%= bootstrap_form_for(@ue, inline_errors: false) do |f| %>
   <% if @ue.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@ue.errors.count, "error") %> prohibited this ue from being saved:</h2>
@@ -12,27 +12,22 @@
   <% end %>
 
     <div class="field">
-      <%= f.label :semestre_id %>
       <%= f.collection_select(:semestre_id,  Semestre.all, :id, :numero) %>
     </div>
 
   <div class="field">
-    <%= f.label :titre %><br>
     <%= f.text_field :titre %>
   </div>
   <div class="field">
-    <%= f.label :objectif %><br>
     <%= f.text_field :objectif %>
   </div>
   <div class="field">
-    <%= f.label :lieu %><br>
     <%= f.select :lieu, ['Evry', 'Strasbourg', 'Evry + Strasbourg'] %>
   </div>
   <div class="field">
-    <%= f.label :prerequis %><br>
     <%= f.text_field :prerequis %>
   </div>
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit "Valider" %>
   </div>
 <% end %>

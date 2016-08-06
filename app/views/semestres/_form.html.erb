@@ -1,4 +1,4 @@
-<%= bootstrap_form_for(@semestre) do |f| %>
+<%= bootstrap_form_for(@semestre, inline_errors: false) do |f| %>
   <% if @semestre.errors.any? %>
         <% flash[:error] = "Vérifiez les erreurs." %>
     <div id="error_explanation">
@@ -13,10 +13,9 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :numero %><br>
     <%= f.text_field :numero %>
   </div>
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit "Valider" %>
   </div>
 <% end %>

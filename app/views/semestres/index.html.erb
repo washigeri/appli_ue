@@ -1,6 +1,6 @@
-<p id="notice"><%= notice %></p>
 
-<h1>Listing Semestres</h1>
+<h1>Liste des Semestres</h1>
+
 
 <table>
   <thead>
@@ -14,9 +14,10 @@
     <% @semestres.each do |semestre| %>
       <tr>
         <td><%= semestre.numero %></td>
-        <td><%= link_to 'Show', semestre %></td>
-        <td><%= link_to 'Edit', edit_semestre_path(semestre) %></td>
-        <td><%= link_to 'Destroy', semestre, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Voir', semestre %></td>
+        <td><%= link_to 'Éditer', edit_semestre_path(semestre) %></td>
+        <td><%= link_to 'Supprimer', semestre, method: :delete, data: { confirm: 'Êtes-vous sur ?' } %></td>
+        <td><%= link_to 'Voir les UEs', ues_from_semestre_path(semestre) %></td>
       </tr>
     <% end %>
   </tbody>
@@ -24,4 +25,4 @@
 
 <br>
 
-<%= link_to 'New Semestre', new_semestre_path %>
+<%= link_to 'Nouveau Semestre', new_semestre_path %>

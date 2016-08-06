@@ -4,7 +4,7 @@ class SemestresController < ApplicationController
   # GET /semestres
   # GET /semestres.json
   def index
-    @semestres = Semestre.all
+    @semestres = Semestre.order(:numero)
   end
 
   # GET /semestres/1

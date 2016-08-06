@@ -1,4 +1,4 @@
-<%= form_for(@cour) do |f| %>
+<%= bootstrap_form_for(@cour, inline_errors: false) do |f| %>
   <% if @cour.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@cour.errors.count, "error") %> prohibited this cour from being saved:</h2>
@@ -11,46 +11,36 @@
     </div>
   <% end %>
     <div class="field">
-      <%= f.label :ue_id %><br>
-      <%= collection_select(:cour, :ue_id, Ue.all, :id, :titre) %>
+      <%= f.collection_select(:ue_id, Ue.all, :id, :titre) %>
     </div>
   <div class="field">
-    <%= f.label :titre %><br>
     <%= f.text_field :titre %>
   </div>
   <div class="field">
-    <%= f.label :objectif %><br>
     <%= f.text_area :objectif %>
   </div>
   <div class="field">
-    <%= f.label :contenu %>
     <%= f.text_area :contenu %>
   </div>
   <div class="field">
-    <%= f.label :type %><br>
     <%= f.text_field :genre %>
   </div>
     <div class="field">
-      <%= f.label :découpage %><br>
       <%= f.text_field :decoupage %>
     </div>
     <div class="field">
-      <%= f.label :Évaluation1 %><br>
       <%= f.text_field :evaluation1 %>
     </div>
     <div class="field">
-      <%= f.label :Évaluation2 %><br>
       <%= f.text_field :evaluation2 %>
     </div>
     <div class="field">
-      <%= f.label :coefficient %><br>
       <%= f.text_field :coeff %>
     </div>
     <div class="field">
-      <%= f.label :bibliographie %><br>
       <%= f.text_area :bibliographie %>
     </div>
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit 'Valider' %>
   </div>
 <% end %>

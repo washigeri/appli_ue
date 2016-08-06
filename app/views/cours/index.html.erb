@@ -1,6 +1,14 @@
-<p id="notice"><%= notice %></p>
-
-<h1>Listing Modules</h1>
+<h1>Liste des Modules</h1>
+<%= bootstrap_form_tag method: 'get' do %>
+    <% Semestre.order(:numero).each do |s| %>
+        <h6><%= s.numero %></h6>
+        <% s.ues.order(:titre).each do |u| %>
+        <%= check_box_tag("ues[]", u.id ) %>
+        <%= u.titre %>
+    <% end %>
+     <% end %>
+    <%= submit_tag 'Appliquer' %>
+<%end %>
 
 <table>
   <thead>
@@ -22,7 +30,7 @@
   <tbody>
     <% @cours.each do |cour| %>
       <tr>
-        <td><%= cour.ue.titre %></td>
+        <td><%= link_to cour.ue.titre, cour.ue %></td>
         <td><%= cour.titre %></td>
         <td><%= cour.objectif %></td>
         <td><%= cour.contenu %></td>
@@ -32,9 +40,10 @@
         <td><%= cour.evaluation2 %></td>
         <td><%= cour.coeff %></td>
         <td><%= cour.bibliographie %></td>
-        <td><%= link_to 'Show', cour %></td>
-        <td><%= link_to 'Edit', edit_cour_path(cour) %></td>
-        <td><%= link_to 'Destroy', cour, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Voir', cour %></td>
+        <td><%= link_to 'Éditer', edit_cour_path(cour) %></td>
+        <td><%= link_to 'Supprimer', cour, method: :delete, data: { confirm: 'Êtes-vous sûr ?' } %></td>
+        <td><%= link_to 'Voir les rubriques', rubriques_from_cour_path(cour) %></td>
       </tr>
     <% end %>
   </tbody>
@@ -42,4 +51,4 @@
 
 <br>
 
-<%= link_to 'New Cour', new_cour_path %>
+<%= link_to 'Nouveau Module', new_cour_path %>

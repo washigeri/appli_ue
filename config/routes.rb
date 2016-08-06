@@ -3,7 +3,10 @@ Rails.application.routes.draw do
   resources :modules, :as => :cours, :controller => :cours
   resources :ues
   resources :semestres
-
+  root 'semestres#index'
+  get '/:semestre_id/ues' => 'ues#index_semestre', as: :ues_from_semestre
+  get '/:ue_id/modules' => 'cours#index_ues', as: :modules_from_ue
+  get '/:cour_id/rubriques' => 'rubriques#index_module', as: :rubriques_from_cour
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

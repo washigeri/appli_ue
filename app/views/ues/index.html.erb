@@ -1,6 +1,11 @@
-<p id="notice"><%= notice %></p>
-
-<h1>Listing Ues</h1>
+<h1>Liste des UEs</h1>
+<%= bootstrap_form_tag method: 'get' do %>
+    <% Semestre.order(:numero).each do |s| %>
+        <%= check_box_tag("semestres[]", s.id ) %>
+        <%= s.numero %>
+    <% end %>
+    <%= submit_tag 'Appliquer' %>
+<%end %>
 
 <table>
   <thead>
@@ -17,14 +22,15 @@
   <tbody>
     <% @ues.each do |ue| %>
       <tr>
-        <td><%= ue.semestre.numero %></td>
+        <td><%= link_to ue.semestre.numero , ue.semestre  %></td>
         <td><%= ue.titre %></td>
         <td><%= ue.objectif %></td>
         <td><%= ue.prerequis %></td>
         <td><%= ue.lieu %></td>
-        <td><%= link_to 'Show', ue %></td>
-        <td><%= link_to 'Edit', edit_ue_path(ue) %></td>
-        <td><%= link_to 'Destroy', ue, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Voir', ue %></td>
+        <td><%= link_to 'Éditer', edit_ue_path(ue) %></td>
+        <td><%= link_to 'Supprimer', ue, method: :delete, data: { confirm: 'Êtes-vous sûr ?' } %></td>
+        <td><%= link_to 'Voir les modules', modules_from_ue_path(ue) %></td>
       </tr>
     <% end %>
   </tbody>
@@ -32,4 +38,5 @@
 
 <br>
 
-<%= link_to 'New Ue', new_ue_path %>
+<%= link_to 'Nouvelle UE', new_ue_path %>
+<%= link_to 'Retour', semestres_path %>
