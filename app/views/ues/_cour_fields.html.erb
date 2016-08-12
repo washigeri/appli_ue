@@ -1,0 +1,46 @@
+<div class="nested-fields">
+<div class="panel panel-success">
+  <div class="panel-heading">
+    <h3 class="panel-title">Nouveau module</h3>
+  </div>
+  <div class="panel-body">
+
+<div class="field">
+  <%= f.text_field :titre %>
+</div>
+<div class="field">
+  <%= f.text_area :objectif %>
+</div>
+<div class="field">
+  <%= f.text_area :contenu %>
+</div>
+<div class="field">
+  <%= f.text_field :genre %>
+</div>
+<div class="field">
+  <%= f.text_field :decoupage %>
+</div>
+<div class="field">
+  <%= f.text_field :evaluation1 %>
+</div>
+<div class="field">
+  <%= f.text_field :evaluation2 %>
+</div>
+
+<div class="field">
+  <%= f.number_field :ects, label: "Crédits ECTS", :value => 0 %>
+</div>
+
+<div class="field">
+  <%= f.number_field :coeff %>
+</div>
+<div class="field">
+  <%= f.text_area :bibliographie %>
+</div>
+
+<%= f.hidden_field :_destroy%>
+
+<%= link_to_remove_association "Supprimer module", f, class: "btn btn-danger" %>
+</div>
+</div>
+</div>

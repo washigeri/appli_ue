@@ -27,6 +27,21 @@
   <div class="field">
     <%= f.text_field :prerequis %>
   </div>
+
+  <h3>Modules</h3>
+
+   <div id="cours">
+    <%= f.fields_for :cours do |builder| %>
+       <%= render "cour_fields", :f => builder %>
+       </br>
+    <% end %>
+  </div>
+
+    <div class="links">
+      <%= link_to_add_association 'Ajouter un module', f, :cours, class: "btn btn-success" %>
+    </div>
+    </br>
+
   <div class="actions">
     <%= f.submit "Valider" %>
   </div>

@@ -13,14 +13,22 @@
 </p>
 
 
-<p>
-  <strong>Lieu:</strong>
-  <%= @ue.lieu %>
-</p>
+
 <p>
   <strong>Prérequis:</strong>
   <%= @ue.prerequis %>
 </p>
+
+<p>
+  <strong>Lieu:</strong>
+  <%= @ue.lieu %>
+</p>
+
+<p>
+  <strong>ECTS de l'UE:</strong>
+  <%= @ue.ects_c %>
+</p>
+
 
 <%= link_to 'Éditer', edit_ue_path(@ue) %> |
 <%= link_to 'Retour', ues_path %>

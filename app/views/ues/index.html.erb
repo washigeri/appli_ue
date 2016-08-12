@@ -4,7 +4,7 @@
         <%= check_box_tag("semestres[]", s.id ) %>
         <%= s.numero %>
     <% end %>
-    <%= submit_tag 'Appliquer' %>
+    <%= submit_tag 'Appliquer', class: "btn btn-default btn-sm" %>
 <%end %>
 
 <table>
@@ -13,8 +13,9 @@
       <th>Semestre</th>
       <th>Titre</th>
       <th>Objectif</th>
-      <th>Lieu</th>
       <th>Prérequis</th>
+      <th>Lieu</th>
+      <th>ECTS de l'UE</th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -22,15 +23,16 @@
   <tbody>
     <% @ues.each do |ue| %>
       <tr>
-        <td><%= link_to ue.semestre.numero , ue.semestre  %></td>
+        <td><%= link_to ue.semestre.numero , ue.semestre, class: "btn btn-primary btn-sm"  %></td>
         <td><%= ue.titre %></td>
         <td><%= ue.objectif %></td>
         <td><%= ue.prerequis %></td>
         <td><%= ue.lieu %></td>
-        <td><%= link_to 'Voir', ue %></td>
-        <td><%= link_to 'Éditer', edit_ue_path(ue) %></td>
-        <td><%= link_to 'Supprimer', ue, method: :delete, data: { confirm: 'Êtes-vous sûr ?' } %></td>
-        <td><%= link_to 'Voir les modules', modules_from_ue_path(ue) %></td>
+        <td><%= ue.ects_c %></td>
+        <td><%= link_to 'Voir', ue, class: "btn btn-info btn-sm" %></td>
+        <td><%= link_to 'Éditer', edit_ue_path(ue), class: "btn btn-warning btn-sm" %></td>
+        <td><%= link_to 'Supprimer', ue, method: :delete, data: { confirm: 'Êtes-vous sûr ?' }, class: "btn btn-danger btn-sm" %></td>
+        <td><%= link_to 'Voir les modules', modules_from_ue_path(ue), class: "btn btn-primary btn-sm" %></td>
       </tr>
     <% end %>
   </tbody>
@@ -38,5 +40,5 @@
 
 <br>
 
-<%= link_to 'Nouvelle UE', new_ue_path %>
-<%= link_to 'Retour', semestres_path %>
+<%= link_to 'Nouvelle UE', new_ue_path, class: "btn btn-success" %>
+<%= link_to 'Retour', semestres_path, class: "btn btn-danger" %>

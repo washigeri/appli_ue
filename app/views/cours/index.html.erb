@@ -22,6 +22,7 @@
       <th>Éval.1</th>
       <th>Éval.2</th>
       <th>Coefficient</th>
+      <th>Crédits ECTS</th>
       <th>Bibliographie</th>
       <th colspan="3"></th>
     </tr>
@@ -39,11 +40,11 @@
         <td><%= cour.evaluation1 %></td>
         <td><%= cour.evaluation2 %></td>
         <td><%= cour.coeff %></td>
+        <td><%= cour.ects %></td>
         <td><%= cour.bibliographie %></td>
         <td><%= link_to 'Voir', cour %></td>
         <td><%= link_to 'Éditer', edit_cour_path(cour) %></td>
         <td><%= link_to 'Supprimer', cour, method: :delete, data: { confirm: 'Êtes-vous sûr ?' } %></td>
-        <td><%= link_to 'Voir les rubriques', rubriques_from_cour_path(cour) %></td>
       </tr>
     <% end %>
   </tbody>

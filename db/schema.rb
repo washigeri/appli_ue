@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160705160723) do
+ActiveRecord::Schema.define(version: 20160705160632) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -25,6 +25,7 @@ ActiveRecord::Schema.define(version: 20160705160723) do
     t.string   "evaluation1"
     t.string   "evaluation2"
     t.integer  "coeff"
+    t.integer  "ects"
     t.string   "bibliographie"
     t.integer  "ue_id"
     t.datetime "created_at",    null: false
@@ -32,17 +33,6 @@ ActiveRecord::Schema.define(version: 20160705160723) do
   end
 
   add_index "cours", ["ue_id"], name: "index_cours_on_ue_id", using: :btree
-
-  create_table "rubriques", force: :cascade do |t|
-    t.string   "titre"
-    t.string   "contenu"
-    t.string   "objectif"
-    t.integer  "cour_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  add_index "rubriques", ["cour_id"], name: "index_rubriques_on_cour_id", using: :btree
 
   create_table "semestres", force: :cascade do |t|
     t.string   "numero"
@@ -55,6 +45,7 @@ ActiveRecord::Schema.define(version: 20160705160723) do
     t.string   "objectif"
     t.string   "lieu"
     t.string   "prerequis"
+    t.integer  "ects_c"
     t.integer  "semestre_id"
     t.string   "prof_resp"
     t.datetime "created_at",  null: false

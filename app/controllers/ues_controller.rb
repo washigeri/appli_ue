@@ -24,6 +24,7 @@ class UesController < ApplicationController
   # GET /ues/new
   def new
     @ue = Ue.new
+    @ue.cours.build
   end
 
   # GET /ues/1/edit
@@ -78,6 +79,6 @@ class UesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def ue_params
-      params.require(:ue).permit(:titre, :objectif, :lieu, :prerequis, :semestre_id)
+      params.require(:ue).permit(:titre, :objectif, :lieu, :prerequis, :semestre_id, cours_attributes: [:titre, :objectif, :ects, :contenu, :genre, :decoupage, :evaluation1, :evaluation2, :coeff, :bibliographie, :_destroy, :id])
     end
 end

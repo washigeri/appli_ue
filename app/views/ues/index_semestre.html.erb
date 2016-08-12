@@ -5,8 +5,9 @@
   <tr>
     <th>Titre</th>
     <th>Objectif</th>
-    <th>Lieu</th>
     <th>Prérequis</th>
+    <th>Lieu</th>
+    <th>ECTS de l'UE</th>
     <th colspan="3"></th>
   </tr>
   </thead>
@@ -18,10 +19,11 @@
         <td><%= ue.objectif %></td>
         <td><%= ue.prerequis %></td>
         <td><%= ue.lieu %></td>
-        <td><%= link_to 'Voir', ue %></td>
-        <td><%= link_to 'Éditer', edit_ue_path(ue) %></td>
-        <td><%= link_to 'Supprimer', ue, method: :delete, data: { confirm: 'Êtes-vous sûr ?' } %></td>
-        <td><%= link_to 'Voir les modules', cours_path(:ues => ue.id.to_s) %></td>
+        <td><%= ue.ects_c %></td>
+        <td><%= link_to 'Voir', ue, class: "btn btn-info btn-sm" %></td>
+        <td><%= link_to 'Éditer', edit_ue_path(ue), class: "btn btn-warning btn-sm" %></td>
+        <td><%= link_to 'Supprimer', ue, method: :delete, data: { confirm: 'Êtes-vous sûr ?' }, class: "btn btn-danger btn-sm" %></td>
+        <td><%= link_to 'Voir les modules', cours_path(:ues => ue.id.to_s), class: "btn btn-primary btn-sm" %></td>
       </tr>
   <% end %>
   </tbody>
@@ -29,5 +31,5 @@
 
 <br>
 
-<%= link_to 'Nouvelle UE', new_ue_path %>
-<%= link_to 'Retour', semestre_path(@semestre) %>
+<%= link_to 'Nouvelle UE', new_ue_path, class: "btn btn-success" %>
+<%= link_to 'Retour', semestre_path(@semestre), class: "btn btn-danger" %>

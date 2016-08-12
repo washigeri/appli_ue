@@ -5,6 +5,7 @@ class CreateUes < ActiveRecord::Migration
       t.string :objectif
       t.string :lieu
       t.string :prerequis
+      t.integer :ects_c
       t.belongs_to :semestre, index: true
       t.string :prof_resp #temporaire
 

@@ -9,6 +9,7 @@ class CreateCours < ActiveRecord::Migration
       t.string :evaluation1
       t.string :evaluation2
       t.integer :coeff
+      t.integer :ects
       t.string :bibliographie
       t.belongs_to :ue, index: true
 

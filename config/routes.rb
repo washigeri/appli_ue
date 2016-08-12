@@ -1,12 +1,14 @@
 Rails.application.routes.draw do
-  resources :rubriques
+  get '/pages/*page' => 'pages#show', as: :page
   resources :modules, :as => :cours, :controller => :cours
   resources :ues
   resources :semestres
-  root 'semestres#index'
+  root 'pages#show', page: "home"
   get '/:semestre_id/ues' => 'ues#index_semestre', as: :ues_from_semestre
   get '/:ue_id/modules' => 'cours#index_ues', as: :modules_from_ue
-  get '/:cour_id/rubriques' => 'rubriques#index_module', as: :rubriques_from_cour
+  match "/404", :to => "errors#not_found", :via => :all
+  match "/500", :to => "errors#internal_server_error", :via => :all
+  #get '/*any' => 'errors#not_found', :via => :all
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

@@ -11,3 +11,9 @@
 /log/*
 !/log/.keep
 /tmp
+.idea/appli_ue.iml
+.idea/dataSources.ids
+.idea/dataSources.local.xml
+.idea/workspace.xml
+.rake_tasks~
+.idea/runConfigurations/
