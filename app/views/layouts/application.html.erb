@@ -4,6 +4,7 @@
   <title>AppliUe</title>
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= yield :javascript_includes %>
   <%= csrf_meta_tags %>
 </head>
 
@@ -12,10 +13,24 @@
     <%= navbar_header brand: "Appli UE", brand_link: '/' %>
     <%= navbar_collapse do %>
       <%= navbar_group class: 'test', id: 'menu' do %>
-          <%= navbar_text 'Choisissez une option:' %>
           <%= navbar_item "Accueil", root_url.to_s %>
           <%= navbar_item "Semestres", semestres_url.to_s %>
-          <%= navbar_item "UEs", ues_url.to_s %>
+          <%= navbar_dropdown "Unités d'Enseignement (UE)" do %>
+                  <li class="<%= index_ues_active('index', 'ues') %>">
+                    <%= link_to 'Toutes', ues_path %>
+                  </li>
+                  <%= navbar_dropdown_divider %>
+                  <%= navbar_text "Par semestre" %>
+                      <% if not Semestre.all.empty? %>
+                        <% Semestre.all.each do |s| %>
+                            <li class="<%= is_active(:semestres, params, s.id, 'index', 'ues') %>" >
+                              <%= link_to s.numero , ues_path(:semestres => [s.id]) %>
+                            </li>
+                        <% end %>
+                      <% else %>
+                        <%= navbar_text "Il n'y a pas de semestres" %>
+                      <% end %>
+           <% end %>
           <%= navbar_item "Modules", cours_url.to_s %>
       <% end %>
       <%= navbar_group align: 'right' do %>
@@ -31,11 +46,26 @@
 
 
 
-<body>
-<div class="container">
+<body class="<%= controller_name %> <%= action_name %>" >
+<div class="container-fluid">
  <%= flash_messages %>
 
- <%= yield %>
+  <div class="row">
+    <% if content_for?(:filter_side) %>
+      <div class="col-md-3">
+        <%= yield :filter_side %>
+      </div>
+      <div class="col-md-9">
+        <%= yield  %>
+      </div>
+    <% else %>
+        <div class="col-md-12">
+          <%= yield %>
+        </div>
+    <% end %>
+  </div>
+  <% if Rails.env.development? %>
+  <% end %>
 </div>
 </body>
 </html>

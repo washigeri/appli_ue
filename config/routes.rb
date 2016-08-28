@@ -1,13 +1,19 @@
 Rails.application.routes.draw do
+  namespace :admin do
+    resources :semestres, only: [:new, :create, :update, :edit, :destroy]
+    resources :ues, only: [:new, :create, :update, :edit, :destroy]
+    resources :modules, as: :cours, :controller => 'cours', only: [:new, :create, :update, :edit, :destroy]
+  end
   get '/pages/*page' => 'pages#show', as: :page
-  resources :modules, :as => :cours, :controller => :cours
-  resources :ues
-  resources :semestres
+  resources :modules, as: :cours, :controller => 'cours', only: [:index, :show]
+  resources :ues, only: [:index, :show]
+  resources :semestres, only: [:index, :show]
   root 'pages#show', page: "home"
-  get '/:semestre_id/ues' => 'ues#index_semestre', as: :ues_from_semestre
-  get '/:ue_id/modules' => 'cours#index_ues', as: :modules_from_ue
   match "/404", :to => "errors#not_found", :via => :all
   match "/500", :to => "errors#internal_server_error", :via => :all
+
+
+
   #get '/*any' => 'errors#not_found', :via => :all
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

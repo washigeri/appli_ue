@@ -1,5 +1,5 @@
 <p>
-  <strong>Numero:</strong>
+  <strong>Semestre:</strong>
   <%= @semestre.numero %>
 </p>
 <h5>UEs:</h5>
@@ -24,5 +24,6 @@
   </tbody>
     <% end %>
 </table>
-<%= link_to 'Éditer', edit_semestre_path(@semestre) %> |
+<%= link_to 'Éditer', edit_admin_semestre_path(@semestre) %> |
 <%= link_to 'Retour', semestres_path %>
+<%= link_to 'PDF', semestre_path(@semestre, :format => 'pdf'), class: 'btn btn-primary' %>

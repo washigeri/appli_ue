@@ -16,4 +16,37 @@ module ApplicationHelper
     nil
   end
 
+  def params_present(key, hash,value)
+    if not hash.nil?
+      if hash.key?(key)
+        if hash[key].include? value.to_s
+          true
+        else
+          false
+        end
+      else
+        false
+      end
+    else
+      false
+    end
+  end
+
+  def is_active(key, hash, value, action, controller)
+      if params[:action] == action and params_present(key, hash, value) and params[:controller] == controller
+        "active"
+      else
+        nil
+      end
+  end
+
+  def index_ues_active(action, controller)
+    if params[:action] == action and params[:controller] == controller and not params[:semestres].present?
+      "active"
+    else
+      nil
+    end
+
+  end
+
 end

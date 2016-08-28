@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160705160632) do
+ActiveRecord::Schema.define(version: 20160828170425) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -24,7 +24,7 @@ ActiveRecord::Schema.define(version: 20160705160632) do
     t.string   "decoupage"
     t.string   "evaluation1"
     t.string   "evaluation2"
-    t.integer  "coeff"
+    t.float    "coeff"
     t.integer  "ects"
     t.string   "bibliographie"
     t.integer  "ue_id"
@@ -50,6 +50,7 @@ ActiveRecord::Schema.define(version: 20160705160632) do
     t.string   "prof_resp"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
+    t.string   "acronyme"
   end
 
   add_index "ues", ["semestre_id"], name: "index_ues_on_semestre_id", using: :btree

@@ -28,7 +28,9 @@
   <strong>ECTS de l'UE:</strong>
   <%= @ue.ects_c %>
 </p>
+<br>
+<%= link_to "PDF", ue_path(@ue, :format => 'pdf'), class: 'btn btn-primary' %>
 
 
-<%= link_to 'Éditer', edit_ue_path(@ue) %> |
+<%= link_to 'Éditer', edit_admin_ue_path(@ue) %> |
 <%= link_to 'Retour', ues_path %>

@@ -1,4 +1,4 @@
-<%= bootstrap_form_for(@cour, label_errors: true) do |f| %>
+<%= bootstrap_form_for([:admin,@cour] , label_errors: true) do |f| %>
   <% if @cour.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@cour.errors.count, "error") %> prohibited this cour from being saved:</h2>
@@ -36,7 +36,7 @@
     </div>
 
     <div class="field">
-       <%= f.number_field :ects, label: "Crédits ECTS", :value => 0 %>
+       <%= f.number_field :ects, label: "Crédits ECTS"%>
     </div>
 
     <div class="field">

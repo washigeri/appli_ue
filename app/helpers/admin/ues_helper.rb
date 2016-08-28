@@ -1,0 +1,2 @@
+module Admin::UesHelper
+end

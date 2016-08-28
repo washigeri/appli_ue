@@ -1,22 +1,68 @@
-<h1>Liste des UEs</h1>
-<%= bootstrap_form_tag method: 'get' do %>
-    <% Semestre.order(:numero).each do |s| %>
-        <%= check_box_tag("semestres[]", s.id ) %>
-        <%= s.numero %>
-    <% end %>
-    <%= submit_tag 'Appliquer', class: "btn btn-default btn-sm" %>
-<%end %>
+<script type="text/javascript">
+  var max = <%= @max_ects %>
+  var min = <%= @min_ects %>
+</script>
+<% if @filters[:filtre_ects].present? %>
+     <script type="text/javascript">
+       var init_filter = <%= get_min_max_slider( @min_ects, @max_ects, convert_string_to_nums(@filters[:filtre_ects])) %>
+     </script>
+<% else %>
+    <script type="text/javascript">
+      var init_filter = <%= get_min_max_slider(@min_ects, @max_ects, [@min_ects, @max_ects]) %>
+    </script>
+<% end %>
 
-<table>
+
+
+<% content_for :filter_side do %>
+  <div class="panel panel-info">
+      <div class="panel-heading">
+        <h3 class="panel-title">Filtres</h3>
+      </div>
+    <div class="panel-body">
+  <%= bootstrap_form_tag method: 'get' do |f| %>
+        <div class="form-group" >
+          <label class="control-label">Semestre</label><br>
+          <% Semestre.order(:numero).each do |s| %>
+              <%= check_box_tag('semestres[]', s.id, params_present(:semestres ,@filters,s.id)) %>
+                  <%= s.numero %><br>
+          <% end %>
+        </div>
+        <div class="form-group">
+          <label class="control-labbel">Lieu</label>
+              <br>
+              <%= check_box_tag("lieu[]", "Evry", checked = params_present(:lieu ,@filters, "Evry") ) %> Evry <br>
+              <%= check_box_tag("lieu[]", "Strasbourg", checked = params_present(:lieu, @filters, 'Strasbourg') ) %> Strasbourg <br>
+              <%= check_box_tag("lieu[]", "Evry + Strasbourg", checked = params_present(:lieu, @filters, 'Evry + Strasbourg') ) %> Evry + Strasbourg <br>
+        </div>
+        <b>ECTS</b>
+          <br>
+          <br>
+        <input id="filtre_ects" name="filtre_ects[]" />
+        <br>
+        <br>
+        <br>
+        <%= f.submit 'Appliquer', class: "btn btn-default btn-sm" %>
+  <% end %>
+    </div>
+  </div>
+<% end %>
+
+  <div class="panel panel-success">
+    <div class="panel-heading">
+      <h1 class="panel-title">Liste des Unités d'Enseigement (UE)</h1>
+    </div>
+<table class="table table-hover table-responsive">
   <thead>
     <tr>
       <th>Semestre</th>
+      <th>Acronyme</th>
       <th>Titre</th>
       <th>Objectif</th>
       <th>Prérequis</th>
       <th>Lieu</th>
-      <th>ECTS de l'UE</th>
-      <th colspan="3"></th>
+      <th>ECTS</th>
+      <th colspan="3">Actions</th>
     </tr>
   </thead>
 
@@ -24,21 +70,23 @@
     <% @ues.each do |ue| %>
       <tr>
         <td><%= link_to ue.semestre.numero , ue.semestre, class: "btn btn-primary btn-sm"  %></td>
-        <td><%= ue.titre %></td>
-        <td><%= ue.objectif %></td>
+        <td><%= ue.acronyme %></td>
+        <td><%= ue.titre.truncate(20, :separator => ' ') %></td>
+        <td><%= ue.objectif.truncate(80, :separator => ' ') %></td>
         <td><%= ue.prerequis %></td>
         <td><%= ue.lieu %></td>
         <td><%= ue.ects_c %></td>
         <td><%= link_to 'Voir', ue, class: "btn btn-info btn-sm" %></td>
-        <td><%= link_to 'Éditer', edit_ue_path(ue), class: "btn btn-warning btn-sm" %></td>
-        <td><%= link_to 'Supprimer', ue, method: :delete, data: { confirm: 'Êtes-vous sûr ?' }, class: "btn btn-danger btn-sm" %></td>
-        <td><%= link_to 'Voir les modules', modules_from_ue_path(ue), class: "btn btn-primary btn-sm" %></td>
+        <td><%= link_to 'Éditer', edit_admin_ue_path(ue), class: "btn btn-warning btn-sm" %></td>
+        <td><%= link_to 'Supprimer', [:admin, ue] , method: :delete, data: { confirm: 'Êtes-vous sûr ?' }, class: "btn btn-danger btn-sm" %></td>
       </tr>
     <% end %>
   </tbody>
 </table>
+<%= will_paginate @ues,  renderer: BootstrapPagination::Rails %>
+</div>
 
 <br>
 
-<%= link_to 'Nouvelle UE', new_ue_path, class: "btn btn-success" %>
+<%= link_to 'Nouvelle UE', new_admin_ue_path, class: "btn btn-success" %>
 <%= link_to 'Retour', semestres_path, class: "btn btn-danger" %>

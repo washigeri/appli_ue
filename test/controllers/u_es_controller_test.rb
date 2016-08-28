@@ -18,10 +18,10 @@ class UEsControllerTest < ActionController::TestCase
 
   test "should create ue" do
     assert_difference('Ue.count') do
-      post :create, ue: { description: @ue.description, lieu: @ue.lieu, titre: @ue.titre, type: @ue.type }
+      post :create, ues: {description: @ue.description, lieu: @ue.lieu, titre: @ue.titre, type: @ue.type }
     end
 
-    assert_redirected_to ue_path(assigns(:ue))
+    assert_redirected_to ue_path(assigns(:ues))
   end
 
   test "should show ue" do
@@ -35,8 +35,8 @@ class UEsControllerTest < ActionController::TestCase
   end
 
   test "should update ue" do
-    patch :update, id: @ue, ue: { description: @ue.description, lieu: @ue.lieu, titre: @ue.titre, type: @ue.type }
-    assert_redirected_to ue_path(assigns(:ue))
+    patch :update, id: @ue, ues: {description: @ue.description, lieu: @ue.lieu, titre: @ue.titre, type: @ue.type }
+    assert_redirected_to ue_path(assigns(:ues))
   end
 
   test "should destroy ue" do

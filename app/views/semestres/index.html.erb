@@ -2,11 +2,11 @@
 <h1>Liste des Semestres</h1>
 
 
-<table>
+<table class="table table-responsive table-hover table-bordered">
   <thead>
     <tr>
-      <th>Numero</th>
-      <th colspan="3"></th>
+      <th>Semestre</th>
+      <th colspan="3">Actions</th>
     </tr>
   </thead>
 
@@ -15,9 +15,9 @@
       <tr>
         <td><%= semestre.numero %></td>
         <td><%= link_to 'Voir', semestre %></td>
-        <td><%= link_to 'Éditer', edit_semestre_path(semestre) %></td>
-        <td><%= link_to 'Supprimer', semestre, method: :delete, data: { confirm: 'Êtes-vous sur ?' } %></td>
-        <td><%= link_to 'Voir les UEs', ues_from_semestre_path(semestre) %></td>
+
+        <td><%= link_to 'Éditer', edit_admin_semestre_path(semestre) %></td>
+        <td><%= link_to 'Supprimer', [ :admin, semestre ], method: :delete, data: { confirm: 'Êtes-vous sur ?' } %></td>
       </tr>
     <% end %>
   </tbody>
@@ -25,4 +25,4 @@
 
 <br>
 
-<%= link_to 'Nouveau Semestre', new_semestre_path %>
+<%= link_to 'Nouveau Semestre', new_admin_semestre_path %>

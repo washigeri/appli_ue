@@ -1,75 +1,67 @@
 class UesController < ApplicationController
-  before_action :set_ue, only: [:show, :edit, :update, :destroy]
+  include UesHelper
+
+  before_action :set_ue, only: :show
 
   # GET /ues
   # GET /ues.json
   def index
-    if params[:semestres].present?
-      @ues = Ue.where("semestre_id IN (?)", params[:semestres]).order(:semestre_id).order(:titre)
+=begin
+    if (params[:semestres].present? or params[:lieu].present?)
+      @ues = Ue.page(params[:page]).where("semestre_id IN (?)", params[:semestres]).where("lieu IN (?)", params[:lieu]).order(:semestre_id).order(:titre)
+      @filters = params
     else
-      @ues = Ue.order(:semestre_id).order(:titre)
+      @ues = Ue.page(params[:page]).order(:semestre_id).order(:titre)
+    end
+=end
+
+    if params[:semestres].present?
+      if params[:lieu].present?
+        if params[:filtre_ects].present?
+          @ues = Ue.filtre_all(params[:lieu], convert_string_to_nums(params[:filtre_ects]), params[:semestres]).page(params[:page]).order(:semestre_id).order(:titre)
+        else
+          @ues = Ue.filtre_semestre_and_lieu(params[:semestres], params[:lieu]).page(params[:page]).order(:semestre_id).order(:titre)
+        end
+      elsif params[:filtre_ects].present?
+        @ues = Ue.filtre_semestre_and_ects(params[:semestres],convert_string_to_nums(params[:filtre_ects])).page(params[:page]).order(:semestre_id).order(:titre)
+      else
+        @ues = Ue.filtre_semestre(params[:semestres]).page(params[:page]).order(:semestre_id).order(:titre)
       end
+    elsif params[:lieu].present?
+      if params[:filtre_ects].present?
+        @ues = Ue.filtre_lieu_and_ects(params[:lieu], convert_string_to_nums(params[:filtre_ects])).page(params[:page]).order(:semestre_id).order(:titre)
+      else
+        @ues = Ue.filtre_lieu(params[:lieu]).page(params[:page]).order(:semestre_id).order(:titre)
+      end
+    elsif params[:filtre_ects].present?
+      @ues = Ue.filtre_ects(convert_string_to_nums(params[:filtre_ects])).page(params[:page]).order(:semestre_id).order(:titre)
+    else
+      @ues = Ue.page(params[:page]).order(:semestre_id).order(:titre)
+    end
+    @filters = params
+    if not Ue.all.empty?
+      @max_ects = Ue.order(:ects_c).last.ects_c.to_i
+      @min_ects = Ue.order(:ects_c).first.ects_c.to_i
+    else
+      @max_ects = 10
+      @min_ects = 0
+    end
   end
 
-  def index_semestre
-    @semestre = Semestre.find(params[:semestre_id])
-    @ues = @semestre.ues.order(:titre)
-  end
 
   # GET /ues/1
   # GET /ues/1.json
   def show
-  end
-
-  # GET /ues/new
-  def new
-    @ue = Ue.new
-    @ue.cours.build
-  end
-
-  # GET /ues/1/edit
-  def edit
-  end
-
-  # POST /ues
-  # POST /ues.json
-  def create
-    @ue = Ue.new(ue_params)
-
     respond_to do |format|
-      if @ue.save
-        format.html { redirect_to @ue, success: 'Ue was successfully created.' }
-        format.json { render :show, status: :created, location: @ue }
-      else
-        format.html { render :new }
-        format.json { render json: @ue.errors, status: :unprocessable_entity }
+      format.html
+      format.pdf do
+        pdf = CombinePDF.parse(FicheuePdf.new(@ue, true).render)
+        pdf.number_pages(location: :bottom, margin_from_height: 0)
+        send_data pdf.to_pdf, filename: "ue_#{@ue.id}_#{@ue.titre.first(5)}_#{Time.now.strftime("%d-%m-%Y_%H-%M")}.pdf", type: 'application/pdf'
       end
     end
   end
 
-  # PATCH/PUT /ues/1
-  # PATCH/PUT /ues/1.json
-  def update
-    respond_to do |format|
-      if @ue.update(ue_params)
-        format.html { redirect_to @ue, success: 'Ue was successfully updated.' }
-        format.json { render :show, status: :ok, location: @ue }
-      else
-        format.html { render :edit }
-        format.json { render json: @ue.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
-  # DELETE /ues/1
-  # DELETE /ues/1.json
-  def destroy
-    @ue.destroy
-    respond_to do |format|
-      format.html { redirect_to ues_url, success: 'Ue was successfully destroyed.' }
-      format.json { head :no_content }
-    end
-  end
 
   private
     # Use callbacks to share common setup or constraints between actions.
@@ -77,8 +69,4 @@ class UesController < ApplicationController
       @ue = Ue.find(params[:id])
     end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def ue_params
-      params.require(:ue).permit(:titre, :objectif, :lieu, :prerequis, :semestre_id, cours_attributes: [:titre, :objectif, :ects, :contenu, :genre, :decoupage, :evaluation1, :evaluation2, :coeff, :bibliographie, :_destroy, :id])
-    end
 end
