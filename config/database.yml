@@ -82,6 +82,6 @@ test:
 #
 production:
   <<: *default
-  database: appli_ue_production
+  database: appli_ue
   username: appli_ue
   password: <%= ENV['APPLI_UE_DATABASE_PASSWORD'] %>
