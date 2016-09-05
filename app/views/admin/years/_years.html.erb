@@ -1,0 +1,38 @@
+<table class="table table-responsive table-hover">
+  <thead>
+  <tr>
+    <th>ID</th>
+    <th>Année scolaire</th>
+    <th>Nombre d'UEs</th>
+    <th>Nombre de modules</th>
+    <th>Etat de Copie</th>
+    <th colspan="3">Actions</th>
+  </tr>
+  </thead>
+  <tbody>
+    <% @years.each do |year| %>
+    <tr>
+      <td><%= year.id %></td>
+      <td><%= year.value %></td>
+      <% countue = 0 %>
+      <% countmodule = 0 %>
+      <% year.semestres.each do |s| %>
+          <% s.ues.each do |u| %>
+              <% countue += 1 %>
+              <% countmodule = u.cours.count %>
+          <% end %>
+      <% end %>
+      <td><%= countue %></td>
+      <td><%= countmodule %></td>
+      <td><%= year.copy ? Year.find(year.copy_from).value.humanize : 'Original'%></td>
+      <td><%= link_to "PDF", year_path(year, format: 'pdf'), class: "btn btn-primary btn-sm" %></td>
+      <td> <%= link_to "Editer", edit_admin_year_path(year), remote: true , class:"btn btn-warning btn-sm" %></td>
+      <td><%= link_to "Supprimer", [:admin, year], remote: true, method: :delete, data: {confirm: "Êtes-vous sûr ?"}, class: "btn btn-sm btn-danger" %></td>
+    </tr>
+   <% end %>
+  </tbody>
+
+
+</table>
+<br>
+<%= link_to "Ajouter une Année", new_admin_year_path, remote: true , class:"btn btn-success" %>

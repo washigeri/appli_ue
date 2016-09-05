@@ -12,7 +12,7 @@
   <% end %>
 
     <div class="field">
-      <%= f.collection_select(:semestre_id,  Semestre.all, :id, :numero) %>
+      <%= f.collection_select(:semestre_id,  Semestre.year(session[:year]), :id, :numero) %>
     </div>
 
   <%= f.text_field :acronyme, help: "Ex: 'MAN', 'MOM', 'OSS', ..." %>
@@ -24,7 +24,7 @@
     <%= f.text_field :objectif %>
   </div>
   <div class="field">
-    <%= f.select :lieu, ['Evry', 'Strasbourg', 'Evry + Strasbourg'] %>
+    <%= f.collection_select(:lieu, Lieu.all, :value, :value, :label => 'Lieu') %>
   </div>
   <div class="field">
     <%= f.text_field :prerequis %>
@@ -33,19 +33,17 @@
   <h3>Modules</h3>
 
    <div id="cours">
-     <% @module_index = 0 %>
     <%= f.fields_for :cours do |builder| %>
        <%= render "cour_fields", :f => builder %>
        </br>
-        <% @module_index += 1 %>
     <% end %>
+     <div class="links">
+       <%= link_to_add_association 'Ajouter un module', f, :cours, class: "btn btn-success" %>
+     </div>
   </div>
 
-    <div class="links">
-      <%= link_to_add_association 'Ajouter un module', f, :cours, class: "btn btn-success" %>
-    </div>
-    </br>
 
+    </br>
   <div class="actions">
     <%= f.submit "Valider" %>
   </div>

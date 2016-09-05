@@ -1,13 +1,12 @@
 class Ue < ActiveRecord::Base
-  before_save :calc_ects_create, :ajout_acro
+  before_save :calc_ects_create
+  before_validation :ajout_acro
   belongs_to :semestre
   has_many :cours, dependent: :destroy
-  validates_associated :cours
-  validates_presence_of :titre, :objectif, :lieu, :prerequis, :semestre_id, :acronyme
-  validates_uniqueness_of :titre, :scope => :semestre_id
-  validates_numericality_of :semestre_id, :ects_c, :allow_blank => true
+  validates_presence_of :titre, :objectif, :lieu, :prerequis, :acronyme
+  validates_uniqueness_of :acronyme, :scope => :semestre_id
+  validates_numericality_of :ects_c, :allow_blank => true
   accepts_nested_attributes_for :cours, :reject_if => lambda { |a| a[:titre].blank? }, :allow_destroy => true
-  validates_uniqueness_of :acronyme
 
   self.per_page = 10
 
@@ -21,7 +20,7 @@ class Ue < ActiveRecord::Base
     temp
   end
 
-
+  scope :year, -> (year) { where('semestre_id IN (?)', year.semestres.map(&:id)) }
 
   scope :filtre_semestre, -> (semestre_ids) { where('semestre_id IN (?) ', semestre_ids) }
   scope :filtre_lieu, -> (lieu) { where('lieu IN (?)', lieu) }
@@ -33,6 +32,14 @@ class Ue < ActiveRecord::Base
 
   scope :filtre_all, -> (lieu, ects, semestre_ids) { filtre_lieu_and_ects(lieu, ects).where('semestre_id IN (?) ', semestre_ids) }
 
+  amoeba do
+    enable
+  end
+
+  def acro_sy
+    "#{acronyme}:#{semestre.numero.humanize};#{semestre.year.value.humanize}"
+  end
+
   private
 
   def calc_ects_create
@@ -40,6 +47,7 @@ class Ue < ActiveRecord::Base
   end
 
   def ajout_acro
+    self.acronyme = self.acronyme.strip()
     if  acronyme.first != "[" and  acronyme.last != "]"
       self.acronyme = "[" + self.acronyme.to_s + "]"
     elsif acronyme.first != "[" and acronyme.last == "]"
@@ -48,5 +56,6 @@ class Ue < ActiveRecord::Base
       self.acronyme =  self.acronyme + "]"
     end
   end
+
 
 end

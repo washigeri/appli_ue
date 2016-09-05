@@ -15,6 +15,7 @@
   <div class="field">
     <%= f.text_field :numero , label: 'Semestre'%>
   </div>
+    <%= f.hidden_field(:year_id, :value => session[:year]) %>
   <div class="actions">
     <%= f.submit "Valider" %>
   </div>

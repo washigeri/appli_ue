@@ -1,0 +1,34 @@
+<table class="table table-responsive table-hover">
+  <thead>
+  <tr>
+    <th>ID</th>
+    <th>Semestre</th>
+    <th>Année</th>
+    <th>Acronyme</th>
+    <th>ECTS</th>
+    <th>Lieu</th>
+    <th>Nombre de modules</th>
+    <th colspan="3">Actions</th>
+  </tr>
+  </thead>
+  <tbody>
+  <% @ues.each do |ue| %>
+      <tr>
+        <td><%= ue.id %></td>
+        <td><%= ue.semestre.numero.humanize %></td>
+        <td><%= ue.semestre.year.value.humanize %></td>
+        <td><%= ue.acronyme %></td>
+        <td><%= ue.ects_c %></td>
+        <td><%= ue.lieu %></td>
+        <td><%= ue.cours.count %></td>
+        <td><%= link_to 'PDF', ue_path(ue, format: 'pdf'), class: 'btn btn-primary btn-sm' %></td>
+        <td> <%= link_to "Editer", edit_admin_ue_path(ue), remote: true , class:"btn btn-warning btn-sm" %></td>
+        <td><%= link_to "Supprimer", [:admin, ue], remote: true, method: :delete, data: {confirm: "Êtes-vous sûr ?"}, class: "btn btn-sm btn-danger" %></td>
+      </tr>
+  <% end %>
+  </tbody>
+
+
+</table>
+<br>
+<%= link_to "Ajouter une UE", new_admin_ue_path, remote: true , class:"btn btn-success" %>

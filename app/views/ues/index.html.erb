@@ -23,17 +23,18 @@
   <%= bootstrap_form_tag method: 'get' do |f| %>
         <div class="form-group" >
           <label class="control-label">Semestre</label><br>
-          <% Semestre.order(:numero).each do |s| %>
+          <% Semestre.year(@year).order(:numero).each do |s| %>
               <%= check_box_tag('semestres[]', s.id, params_present(:semestres ,@filters,s.id)) %>
                   <%= s.numero %><br>
           <% end %>
         </div>
         <div class="form-group">
-          <label class="control-labbel">Lieu</label>
-              <br>
-              <%= check_box_tag("lieu[]", "Evry", checked = params_present(:lieu ,@filters, "Evry") ) %> Evry <br>
-              <%= check_box_tag("lieu[]", "Strasbourg", checked = params_present(:lieu, @filters, 'Strasbourg') ) %> Strasbourg <br>
-              <%= check_box_tag("lieu[]", "Evry + Strasbourg", checked = params_present(:lieu, @filters, 'Evry + Strasbourg') ) %> Evry + Strasbourg <br>
+          <label class="control-label">Lieu</label>
+          <br>
+          <% Lieu.order(:value).each do |lieu| %>
+            <%= check_box_tag('lieu[]', lieu.value, params_present(:lieu, @filters, lieu.value)) %>
+            <%= lieu.value %><br>
+          <%end %>
         </div>
         <b>ECTS</b>
           <br>
@@ -62,7 +63,7 @@
       <th>Prérequis</th>
       <th>Lieu</th>
       <th>ECTS</th>
-      <th colspan="3">Actions</th>
+      <th colspan="4">Actions</th>
     </tr>
   </thead>
 
@@ -76,6 +77,7 @@
         <td><%= ue.prerequis %></td>
         <td><%= ue.lieu %></td>
         <td><%= ue.ects_c %></td>
+        <td><%= link_to 'PDF', ue_path(ue, format: 'pdf'), class: 'btn btn-sm btn-primary' %></td>
         <td><%= link_to 'Voir', ue, class: "btn btn-info btn-sm" %></td>
         <td><%= link_to 'Éditer', edit_admin_ue_path(ue), class: "btn btn-warning btn-sm" %></td>
         <td><%= link_to 'Supprimer', [:admin, ue] , method: :delete, data: { confirm: 'Êtes-vous sûr ?' }, class: "btn btn-danger btn-sm" %></td>

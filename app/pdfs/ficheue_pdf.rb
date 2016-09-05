@@ -1,15 +1,23 @@
 class FicheuePdf < Prawn::Document
-
-  def initialize(ue, flag_pages)
+  include ActionView::Helpers::NumberHelper
+  def initialize(ue, flag_pages, flag_sem = false)
     super()
+    font_families.update('Helvetica' => {
+        :normal => "#{Rails.root.to_s}/app/pdfs/Helvetica.ttf",
+        :bold => "#{Rails.root.to_s}/app/pdfs/Helvetica_bold.ttf",
+        :italic => "#{Rails.root.to_s}/app/pdfs/Helvetica_italic.ttf",
+    })
     @ue = ue
-    @cours = @ue.cours
+    @cours = @ue.cours.order(:id)
     header
-    body(flag_pages)
+    body(flag_pages, flag_sem)
     @cours.each_with_index do |cour, compteur|
       module_pdf(cour,compteur)
     end
+
   end
+
+
 
 
   def header
@@ -17,16 +25,16 @@ class FicheuePdf < Prawn::Document
     text "Fiche d'Unité d'Enseignement (UE)", :size => 20, style: :bold, :align => :center
   end
 
-  def body(flag_pages)
+  def body(flag_pages, flag_sem )
     move_down(50)
 
-    text "#{@ue.titre}", size: 15, style: :bold, :align => :center
+    text flag_sem ? "Semestre #{@ue.semestre.numero.last}: #{@ue.acronyme} - #{@ue.titre}" : "#{@ue.acronyme} - #{@ue.titre}" , size: 15, style: :bold, :align => :center
 
     move_down(30)
     stroke_horizontal_rule
     move_down(20)
     bounding_box([30, cursor], :width => bounds.right - 30) do
-      text "Objectif :", size: 13, style: :bold
+      text "Objectif :", size: 11, style: :bold
       move_down(10)
       text @ue.objectif.to_s
     end
@@ -35,23 +43,23 @@ class FicheuePdf < Prawn::Document
     bounding_box([15,y_box], :width => bounds.right/2 - 15) do
       indent(10) do
         move_down(5)
-        text "Semestre :", size: 13, style: :bold
+        text "Semestre :", size: 11, style: :bold
         move_down(5)
         text @ue.semestre.numero.to_s
         move_down(20)
-        text "Prérequis :", size: 13, style: :bold
+        text "Prérequis :", size: 11, style: :bold
         move_down(5)
         text @ue.prerequis.to_s
         move_down(20)
-        text "Lieu :", size: 13, style: :bold
+        text "Lieu :", size: 11, style: :bold
         move_down(5)
         text @ue.lieu.to_s
         move_down(20)
-        text "ECTS :", size: 13, style: :bold
+        text "ECTS :", size: 11, style: :bold
         move_down(5)
         text @ue.ects_c.to_s
         move_down(20)
-        text "Nombre de modules :", size: 13, style: :bold
+        text "Nombre de modules :", size: 11, style: :bold
         move_down(5)
         text @ue.cours.count.to_s
         move_down(5)
@@ -62,20 +70,14 @@ class FicheuePdf < Prawn::Document
       @cours.each_with_index do |cour, compteur |
         bounding_box([0, cursor ], :width => bounds.width ) do
           move_down(5)
-          text "Module #{compteur +1 } : #{cour.titre}", size: 14, style: :bold, :align => :center
+          text "Module #{compteur +1 } : #{cour.titre}", size: 11, style: :bold, :align => :center
           move_down(5)
           indent(10) do
-            text "Objectif :", size: 13, style: :bold
-            move_down(5)
-            text cour.objectif.truncate(70, :separator => ' ')
+            text "ECTS : #{cour.ects.to_s}", size: 11, style: :bold
             move_down(20)
-            text "ECTS :", size: 13, style: :bold
-            move_down(5)
-            text cour.ects.to_s
+            text "Type : #{cour.genre.to_s}", size: 11, style: :bold
             move_down(20)
-            text "Type :", size: 13, style: :bold
-            move_down(5)
-            text cour.genre.to_s
+            text "Coefficient : #{number_to_human(cour.coeff).to_s}", size: 11, style: :bold
           move_down(5)
           end
           if flag_pages
@@ -86,56 +88,54 @@ class FicheuePdf < Prawn::Document
           move_down(2)
           transparent(0.75) { stroke_bounds }
         end
-      move_down(10)
       end
     end
   end
 
   def module_pdf(cour,compteur)
     start_new_page
-
     text "Module #{compteur + 1} : #{cour.titre}", size: 20, style: :bold
     stroke_horizontal_rule
-    move_down(30)
+    move_down(10)
     bounding_box([15, cursor], :width => bounds.width - 30, :height => bounds.height - 100) do
       move_down(10)
       indent(15) do
-        text "Objectif :", size: 15, style: :bold
-        move_down(10)
-        text cour.objectif
+        text "Objectif :", size: 11, style: :bold
+        move_down(5)
+        text cour.objectif, size: 9
         move_down(20)
-        text "Contenu :", size: 15, style: :bold
-        move_down(10)
-        text cour.contenu
+        text "Contenu :", size: 11, style: :bold
+        move_down(5)
+        text cour.contenu, size: 9
         move_down(20)
-        text "Type :", size: 15, style: :bold
-        move_down(10)
-        text cour.genre
+        text "Type :", size: 11, style: :bold
+        move_down(5)
+        text cour.genre, size: 9
         move_down(20)
-        text "Découpage :", size: 15, style: :bold
-        move_down(10)
-        text cour.decoupage
+        text "Découpage :", size: 11, style: :bold
+        move_down(5)
+        text cour.decoupage, size: 9
         move_down(20)
-        text "Évaluation 1 :", size: 15, style: :bold
-        move_down(10)
-        text cour.evaluation1
+        text "Évaluation 1 :", size: 11, style: :bold
+        move_down(5)
+        text cour.evaluation1, size: 9
         move_down(20)
-        text "Évaluation 2 :", size: 15, style: :bold
-        move_down(10)
-        text cour.evaluation2
+        text "Évaluation 2 :", size: 11, style: :bold
+        move_down(5)
+        text cour.evaluation2, size: 9
         move_down(20)
-        text "Coefficient :", size: 15, style: :bold
-        move_down(10)
-        text cour.coeff.to_s
+        text "Coefficient :", size: 11, style: :bold
+        move_down(5)
+        text cour.coeff.to_s, size: 9
         move_down(20)
-        text "ECTS :", size: 15, style: :bold
-        move_down(10)
-        text cour.ects.to_s
+        text "ECTS :", size: 11, style: :bold
+        move_down(5)
+        text cour.ects.to_s, size: 9
         move_down(20)
-        text "Bibliographie :", size: 13, style: :bold
-        move_down(10)
-        text cour.bibliographie, size: 10
-        move_down(10)
+        text "Bibliographie :", size: 11, style: :bold
+        move_down(5)
+        text cour.bibliographie, size: 8
+        move_down(5)
       end
       transparent(0.75) { stroke_bounds }
     end

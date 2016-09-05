@@ -11,7 +11,7 @@ class CreateCours < ActiveRecord::Migration
       t.float :coeff
       t.integer :ects
       t.string :bibliographie
-      t.belongs_to :ues, index: true
+      t.belongs_to :ue, index: true
 
       t.timestamps null: false
     end

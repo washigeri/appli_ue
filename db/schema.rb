@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160828170425) do
+ActiveRecord::Schema.define(version: 20160830202648) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -34,11 +34,21 @@ ActiveRecord::Schema.define(version: 20160828170425) do
 
   add_index "cours", ["ue_id"], name: "index_cours_on_ue_id", using: :btree
 
+  create_table "others", force: :cascade do |t|
+    t.string   "value"
+    t.string   "type"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "semestres", force: :cascade do |t|
     t.string   "numero"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer  "year_id"
   end
+
+  add_index "semestres", ["year_id"], name: "index_semestres_on_year_id", using: :btree
 
   create_table "ues", force: :cascade do |t|
     t.string   "titre"
@@ -55,4 +65,13 @@ ActiveRecord::Schema.define(version: 20160828170425) do
 
   add_index "ues", ["semestre_id"], name: "index_ues_on_semestre_id", using: :btree
 
+  create_table "years", force: :cascade do |t|
+    t.string   "value"
+    t.boolean  "copy"
+    t.integer  "copy_from"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_foreign_key "semestres", "years"
 end

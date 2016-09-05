@@ -4,11 +4,21 @@ class CoursController < ApplicationController
   # GET /cours
   # GET /cours.json
   def index
-    if params[:ues].present?
-      @cours = Cour.where("ue_id IN (?)", params[:ues]).order(:ue_id).order(:titre)
-    else
-      @cours = Cour.order(:ue_id).order(:titre)
-    end
+      if params[:ues].present?
+        if params[:genres].present?
+          @cours = Cour.both(params[:genres], params[:ues]).page(params[:page]).order(:ue_id).order(:titre)
+        else
+          @cours = Cour.ue(params[:ues]).page(params[:page]).order(:ue_id).order(:titre)
+        end
+      else
+        if params[:genres].present?
+          @cours = Cour.genre(params[:genres]).page(params[:page]).order(:ue_id).order(:titre)
+        else
+          ues = Ue.year(@year)
+          @cours = Cour.year(ues).page(params[:page]).order(:ue_id).order(:titre)
+        end
+      end
+      @filters = params
   end
 
 

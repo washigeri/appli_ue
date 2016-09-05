@@ -21,8 +21,8 @@
                   </li>
                   <%= navbar_dropdown_divider %>
                   <%= navbar_text "Par semestre" %>
-                      <% if not Semestre.all.empty? %>
-                        <% Semestre.all.each do |s| %>
+                      <% if not Semestre.year(@year).empty? %>
+                        <% Semestre.year(@year).each do |s| %>
                             <li class="<%= is_active(:semestres, params, s.id, 'index', 'ues') %>" >
                               <%= link_to s.numero , ues_path(:semestres => [s.id]) %>
                             </li>
@@ -34,7 +34,11 @@
           <%= navbar_item "Modules", cours_url.to_s %>
       <% end %>
       <%= navbar_group align: 'right' do %>
-          <%= navbar_item "Admin", root_url.to_s %>
+            <%= form_tag(set_year_path, {class: "navbar-form navbar-left", method: "get", remote: true}) do %>
+                    <%= select_tag "year", options_from_collection_for_select(Year.all, :id, :value, :selected => session[:year]), class: "form-control" %>
+                  <%= submit_tag "Valider", class:"btn btn-default", :name => nil %>
+            <% end %>
+          <%= navbar_item "Admin", admin_path %>
           <%= navbar_dropdown 'Autre' do %>
               <%= navbar_item 'À propos', page_url(:about).to_s %>
            <% end %>
@@ -48,7 +52,9 @@
 
 <body class="<%= controller_name %> <%= action_name %>" >
 <div class="container-fluid">
- <%= flash_messages %>
+
+  <%= flash_messages %>
+
 
   <div class="row">
     <% if content_for?(:filter_side) %>
@@ -59,7 +65,7 @@
         <%= yield  %>
       </div>
     <% else %>
-        <div class="col-md-12">
+        <div class="col-md-10 col-md-offset-1">
           <%= yield %>
         </div>
     <% end %>

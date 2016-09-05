@@ -11,7 +11,7 @@
     </div>
   <% end %>
     <div class="field">
-      <%= f.collection_select(:ue_id, Ue.all, :id, :titre) %>
+      <%= f.collection_select(:ue_id, Ue.year(@year), :id, :titre) %>
     </div>
   <div class="field">
     <%= f.text_field :titre %>
@@ -23,7 +23,7 @@
     <%= f.text_area :contenu %>
   </div>
   <div class="field">
-    <%= f.text_field :genre %>
+    <%= f.collection_select(:genre, Genre.all, :value, :value, label: 'Type') %>
   </div>
     <div class="field">
       <%= f.text_field :decoupage %>
@@ -40,11 +40,12 @@
     </div>
 
     <div class="field">
-      <%= f.number_field :coeff %>
+      <%= f.number_field :coeff, step: 0.01 %>
     </div>
     <div class="field">
       <%= f.text_area :bibliographie %>
     </div>
+
   <div class="actions">
     <%= f.submit 'Valider' %>
   </div>

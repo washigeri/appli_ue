@@ -1,12 +1,28 @@
 class Admin::UesController < ApplicationController
   before_action :set_ue, only: [ :edit, :update, :destroy]
+  before_action :all_ues, only: [:index, :create, :update, :destroy]
+
+  def index
+    respond_to do |format|
+      format.js
+    end
+  end
+
   def new
     @ue = Ue.new
+    respond_to do |format|
+      format.html
+      format.js
+    end
   end
 
 
   # GET /ues/1/edit
   def edit
+    respond_to do |format|
+      format.html
+      format.js {render :new }
+    end
   end
 
   # POST /ues
@@ -17,10 +33,11 @@ class Admin::UesController < ApplicationController
     respond_to do |format|
       if @ue.save
         format.html { redirect_to @ue, success: 'Ue was successfully created.' }
-        format.json { render :show, status: :created, location: @ue }
+        format.js
       else
         format.html { render :new }
         format.json { render json: @ue.errors, status: :unprocessable_entity }
+        format.js { render :new }
       end
     end
   end
@@ -31,10 +48,11 @@ class Admin::UesController < ApplicationController
     respond_to do |format|
       if @ue.update(ue_params)
         format.html { redirect_to @ue, success: 'Ue was successfully updated.' }
-        format.json { render :show, status: :ok, location: @ue }
+        format.js { render :create }
       else
         format.html { render :edit }
         format.json { render json: @ue.errors, status: :unprocessable_entity }
+        format.js {render :new }
       end
     end
   end
@@ -46,6 +64,7 @@ class Admin::UesController < ApplicationController
     respond_to do |format|
       format.html { redirect_to ues_url, success: 'Ue was successfully destroyed.' }
       format.json { head :no_content }
+      format.js {render :index }
     end
   end
 
@@ -55,8 +74,12 @@ class Admin::UesController < ApplicationController
     @ue = Ue.find(params[:id])
   end
 
+  def all_ues
+    @ues = Ue.all.order(:id)
+  end
+
   # Never trust parameters from the scary internet, only allow the white list through.
   def ue_params
-    params.require(:ue).permit(:acronyme, :titre, :objectif, :lieu, :prerequis, :semestre_id, cours_attributes: [:titre, :objectif, :ects, :contenu, :genre, :decoupage, :evaluation1, :evaluation2, :coeff, :bibliographie, :_destroy, :id])
+    params.require(:ue).permit(:acronyme, :year_id, :titre, :objectif, :lieu, :prerequis, :semestre_id, cours_attributes: [:titre, :objectif, :ects, :contenu, :genre, :decoupage, :evaluation1, :evaluation2, :coeff, :bibliographie, :_destroy, :id, :year_id])
   end
 end

@@ -16,3 +16,6 @@
 //= require bootstrap-sprockets
 //= require cocoon
 //= require ues
+//= require admin
+
+

@@ -1,8 +1,15 @@
 Rails.application.routes.draw do
+  get 'set_year' => 'years#set_year', as: 'set_year'
+  get '/admin' => 'admin#admin', as: 'admin'
+  resources :years, only: :show
   namespace :admin do
-    resources :semestres, only: [:new, :create, :update, :edit, :destroy]
-    resources :ues, only: [:new, :create, :update, :edit, :destroy]
-    resources :modules, as: :cours, :controller => 'cours', only: [:new, :create, :update, :edit, :destroy]
+    resources :years, except: :show
+    resources :others, except: :show
+    resources :lieus, except: :show, controller: 'others', type: 'Lieu'
+    resources :genres, except: :show, controller: 'others', type: 'Genre'
+    resources :semestres, except: :show
+    resources :ues, except: :show
+    resources :modules, as: :cours, :controller => 'cours', except: :show
   end
   get '/pages/*page' => 'pages#show', as: :page
   resources :modules, as: :cours, :controller => 'cours', only: [:index, :show]

@@ -1,0 +1,3 @@
+class Lieu < Other
+
+end

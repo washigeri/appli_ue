@@ -1,0 +1,44 @@
+<% content_for :filter_side do %>
+  <div class="panel-group" id="accordion">
+    <div class="panel panel-info">
+      <div class="panel-heading">
+        <h3 class="panel-title"><a data-toggle="collapse" data-parent="#accordion" href="#collapse1">Menu</a></h3>
+      </div>
+      <div class="panel-collapse collapse in" id="collapse1">
+        <div class="list-group" id="1">
+           <%= link_to "Accueil Admin", admin_path, remote: true, class: "list-group-item" %>
+           <%= link_to "Semestres", admin_semestres_path, remote: true, class: "list-group-item" %>
+            <%= link_to "Unités d'Enseignement (UE)", admin_ues_path, remote: true, class: "list-group-item" %>
+            <%= link_to "Modules", admin_cours_path, remote: true, class: "list-group-item"  %>
+        </div>
+      </div>
+    </div>
+    <div class="panel panel-danger">
+      <div class="panel-heading">
+        <h3 class="panel-title"><a data-toggle="collapse" data-parent="#accordion" href="#collapse2">Configuration</a></h3>
+      </div>
+      <div class="panel-collapse collapse" id="collapse2">
+        <div class="list-group" id="2">
+          <%= link_to "Gestion des années", admin_years_path, remote: true, class: "list-group-item" %>
+          <%= link_to "Autres paramètres ", admin_others_path, remote: true, class: "list-group-item" %>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>
+
+
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h2 class="panel-title" id="titre_panneau">Panneau d'Administration</h2>
+  </div>
+  <div id="partial">
+
+  </div>
+    <br>
+    <div class="row">
+      <div class="col col-md-10 col-md-offset-1">
+        <div id="form"></div>
+      </div>
+    </div>
+</div>

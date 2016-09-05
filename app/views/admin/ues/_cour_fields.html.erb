@@ -1,9 +1,9 @@
 <div class="nested-fields">
 <div class="panel panel-success">
   <div class="panel-heading">
-    <h3 class="panel-title " ><a href="#module<%= @module_index %>" data-toggle="collapse"><%= "Module #{@module_index + 1 }" %></a></h3>
+    <h3 class="panel-title"><a data-toggle="collapse" href=""></a></h3>
   </div>
-  <div class="panel-collapse collapse" id=<%= "module#{@module_index}" %>>
+  <div class="panel-collapse collapse" id="" >
     <div class="panel-body">
 
 <div class="field">
@@ -16,7 +16,7 @@
   <%= f.text_area :contenu %>
 </div>
 <div class="field">
-  <%= f.text_field :genre %>
+  <%= f.collection_select(:genre, Genre.all, :value, :value, label: 'Type') %>
 </div>
 <div class="field">
   <%= f.text_field :decoupage %>
@@ -33,7 +33,7 @@
 </div>
 
 <div class="field">
-  <%= f.number_field :coeff, :step => 0.25 %>
+  <%= f.number_field :coeff, :step => 0.01 %>
 </div>
 <div class="field">
   <%= f.text_area :bibliographie %>

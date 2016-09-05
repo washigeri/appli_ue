@@ -1,0 +1,46 @@
+<div class="panel panel-success" id="form_panel">
+  <div class="panel-heading">
+    <button type="button" class="close" data-target="#form_panel" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Fermer</span>
+    </button>
+    <h3 class="panel-title"><%= action_name == 'new' ? 'Nouvelle ' : 'Edition d'  %>UE</h3>
+  </div>
+  <div class="panel panel-body">
+      <%= bootstrap_form_for([:admin ,@ue ], label_errors: true, remote: true) do |f| %>
+
+          <div class="field">
+            <%= f.collection_select(:semestre_id,  Semestre.all, :id, :semestre_year) %>
+          </div>
+
+          <%= f.text_field :acronyme, help: "Ex: 'MAN', 'MOM', 'OSS', ..." %>
+
+          <div class="field">
+            <%= f.text_field :titre %>
+          </div>
+          <div class="field">
+            <%= f.text_field :objectif %>
+          </div>
+          <div class="field">
+            <%= f.collection_select(:lieu, Lieu.all, :value, :value, :label => 'Lieu') %>
+          </div>
+          <div class="field">
+            <%= f.text_field :prerequis %>
+          </div>
+
+          <h3>Modules</h3>
+
+          <div id="cours">
+            <%= f.fields_for :cours do |builder| %>
+                <%= render "cour_fields", :f => builder %>
+                <br>
+            <% end %>
+            <div class="links">
+              <%= link_to_add_association 'Ajouter un module', f, :cours, class: "btn btn-success" %>
+            </div>
+          </div>
+          <br>
+          <div class="actions">
+            <%= f.submit "Valider" %>
+          </div>
+      <% end %>
+  </div>
+</div>

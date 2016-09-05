@@ -1,0 +1,21 @@
+
+    <div class="panel panel-success" id="form_panel">
+      <div class="panel-heading">
+        <button type="button" class="close" data-target="#form_panel" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Fermer</span>
+        </button>
+        <h3 class="panel-title"><%= action_name == 'new' ? 'Nouvelle ' : "Edition d'"  %>Année</h3>
+
+      </div>
+      <div class="panel panel-body">
+          <%= bootstrap_form_for([:admin, @year], label_errors: true, remote: true) do |f| %>
+            <%= f.text_field :value, label: "Année" %>
+            <% if action_name == 'new' %>
+                <%= f.form_group :copy, label: {text: "Copie depuis une année existante"} do %>
+                    <%= f.check_box :copy, label: "Copier depuis une année existante" %>
+                <% end %>
+                <%= f.collection_select(:copy_from, Year.all, :id, :value, label: 'Source') %>
+            <% end %>
+           <%= f.submit "Valider" %>
+          <% end %>
+      </div>
+    </div>

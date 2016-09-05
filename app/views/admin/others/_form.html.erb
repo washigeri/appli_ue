@@ -1,0 +1,15 @@
+<div class="panel panel-success" id="form_panel">
+  <div class="panel-heading">
+    <button type="button" class="close" data-target="#form_panel" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Fermer</span>
+    </button>
+    <h3 class="panel-title"><%= action_name == 'new' ? 'Nouveau ' : 'Edition de '  %><%= @type == 'Other' ? 'Paramètre' : @type.humanize  %></h3>
+
+  </div>
+  <div class="panel panel-body">
+    <%= bootstrap_form_for([:admin, @other], label_errors: true, remote: true) do |f| %>
+        <%= f.text_field :value, label: "Valeur" %>
+        <%= f.select :type, Other.types.map {|t| [t.humanize, t.camelcase]}, {}, disabled: @type != "Other" %>
+        <%= f.submit "Valider" %>
+    <% end %>
+  </div>
+</div>

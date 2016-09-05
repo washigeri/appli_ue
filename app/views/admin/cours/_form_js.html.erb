@@ -1,0 +1,50 @@
+<div class="panel panel-success" id="form_panel">
+  <div class="panel-heading">
+    <button type="button" class="close" data-target="#form_panel" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Fermer</span>
+    </button>
+    <h3 class="panel-title"><%= action_name == 'new' ? 'Nouveau ' : 'Edition de ' %>Module</h3>
+  </div>
+  <div class="panel panel-body">
+      <%= bootstrap_form_for([:admin,@cour] , label_errors: true, remote: true) do |f| %>
+          <div class="field">
+            <%= f.collection_select(:ue_id, Ue.all, :id, :acro_sy, label: 'UE') %>
+          </div>
+          <div class="field">
+            <%= f.text_field :titre %>
+          </div>
+          <div class="field">
+            <%= f.text_area :objectif %>
+          </div>
+          <div class="field">
+            <%= f.text_area :contenu %>
+          </div>
+          <div class="field">
+            <%= f.collection_select(:genre, Genre.all, :value, :value, label: 'Type') %>
+          </div>
+          <div class="field">
+            <%= f.text_field :decoupage %>
+          </div>
+          <div class="field">
+            <%= f.text_field :evaluation1 %>
+          </div>
+          <div class="field">
+            <%= f.text_field :evaluation2 %>
+          </div>
+
+          <div class="field">
+            <%= f.number_field :ects, label: "Crédits ECTS"%>
+          </div>
+
+          <div class="field">
+            <%= f.number_field :coeff, step: 0.01 %>
+          </div>
+          <div class="field">
+            <%= f.text_area :bibliographie %>
+          </div>
+
+          <div class="actions">
+            <%= f.submit 'Valider' %>
+          </div>
+      <% end %>
+  </div>
+</div>

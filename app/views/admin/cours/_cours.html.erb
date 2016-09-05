@@ -1,0 +1,35 @@
+<table class="table table-responsive table-hover">
+  <thead>
+  <tr>
+    <th>ID</th>
+    <th>Semestre</th>
+    <th>Année</th>
+    <th>UE</th>
+    <th>Titre</th>
+    <th>ECTS</th>
+    <th>Genre</th>
+    <th>Coefficient</th>
+    <th colspan="2">Actions</th>
+  </tr>
+  </thead>
+  <tbody>
+  <% @cours.each do |cour| %>
+      <tr>
+        <td><%= cour.id %></td>
+        <td><%= cour.ue.semestre.numero.humanize %></td>
+        <td><%= cour.ue.semestre.year.value.humanize %></td>
+        <td><%= cour.ue.acronyme %></td>
+        <td><%= cour.titre.truncate(70, separator: ' ') %></td>
+        <td><%= cour.ects %></td>
+        <td><%= cour.genre %></td>
+        <td><%= number_to_human(cour.coeff) %></td>
+        <td> <%= link_to "Editer", edit_admin_cour_path(cour), remote: true , class:"btn btn-warning btn-sm" %></td>
+        <td><%= link_to "Supprimer", [:admin, cour], remote: true, method: :delete, data: {confirm: "Êtes-vous sûr ?"}, class: "btn btn-sm btn-danger" %></td>
+      </tr>
+  <% end %>
+  </tbody>
+
+
+</table>
+<br>
+<%= link_to "Ajouter un module", new_admin_cour_path, remote: true , class:"btn btn-success" %>

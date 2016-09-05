@@ -1,0 +1,28 @@
+<table class="table table-responsive table-hover">
+  <thead>
+  <tr>
+    <th>ID</th>
+    <th>Semestre</th>
+    <th>Nombre d'UEs</th>
+    <th>Année</th>
+    <th colspan="3">Actions</th>
+  </tr>
+  </thead>
+  <tbody>
+  <% @semestres.each do |semestre| %>
+      <tr>
+        <td><%= semestre.id %></td>
+        <td><%= semestre.numero %></td>
+        <td><%= semestre.ues.count %></td>
+        <td><%= semestre.year.value.humanize %></td>
+        <td><%= link_to 'PDF', semestre_path(semestre, format: 'pdf'), class: 'btn btn-primary btn-sm' %></td>
+        <td> <%= link_to "Editer", edit_admin_semestre_path(semestre), remote: true , class:"btn btn-warning btn-sm" %></td>
+        <td><%= link_to "Supprimer", [:admin, semestre], remote: true, method: :delete, data: {confirm: "Êtes-vous sûr ?"}, class: "btn btn-sm btn-danger" %></td>
+      </tr>
+  <% end %>
+  </tbody>
+
+
+</table>
+<br>
+<%= link_to "Ajouter un Semestre", new_admin_semestre_path, remote: true , class:"btn btn-success" %>

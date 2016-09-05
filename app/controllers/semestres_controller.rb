@@ -4,7 +4,7 @@ class SemestresController < ApplicationController
   # GET /semestres
   # GET /semestres.json
   def index
-    @semestres = Semestre.order(:numero)
+    @semestres = Semestre.year(@year).order(:numero)
   end
 
   # GET /semestres/1
@@ -18,7 +18,7 @@ class SemestresController < ApplicationController
           pdf << CombinePDF.parse(FicheuePdf.new(ue, false).render)
         end
         pdf.number_pages(:location => :bottom, :margin_from_height => 0)
-        send_data pdf.to_pdf, filename: "semestre_#{@semestre.id}_#{@semestre.numero}_#{Time.now.strftime("%d-%m-%Y_%H-%M")}.pdf", type: 'application/pdf'
+        send_data pdf.to_pdf, filename: "semestre_#{@semestre.numero}_#{@semestre.year.value}.pdf", type: 'application/pdf'
       end
     end
   end

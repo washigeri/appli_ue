@@ -1,0 +1,25 @@
+<table class="table table-responsive table-hover">
+  <thead>
+  <tr>
+    <th>ID</th>
+    <th>Type de paramètre</th>
+    <th>Valeur</th>
+    <th colspan="3">Actions</th>
+  </tr>
+  </thead>
+  <tbody>
+  <% @others.each do |other| %>
+      <tr>
+        <td><%= other.id %></td>
+        <td><%= other.type %></td>
+        <td><%= other.value %></td>
+        <td><%= link_to "Voir tous les #{other.type.pluralize}", sti_other_path(other.type), remote: true, class: "btn btn-info" %></td>
+        <td><%= link_to "Editer", sti_other_path(other.type, other, :edit), remote: true, class: "btn btn-warning" %></td>
+        <td><%= link_to "Supprimer", sti_other_path(other.type, other), method: :delete, data: {confirm: "Êtes-vous sûr ?"}, remote: true, class: "btn btn-danger"%></td>
+      </tr>
+  <% end %>
+  </tbody>
+</table>
+<br>
+<%= link_to "Voir tous les types de paramètres", sti_other_path, class: "btn btn-primary", remote: true %>
+<%= link_to "Nouveau #{@type == 'Other' ? "paramètre" : @type.underscore }", sti_other_path(@type, nil, :new), class: "btn btn-success", remote: true %>

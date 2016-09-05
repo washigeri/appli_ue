@@ -3,9 +3,14 @@ class FichesemestrePdf < Prawn::Document
   def initialize(semestre)
     super()
     @semestre = semestre
-    @ues = @semestre.ues
+    @ues = @semestre.ues.order(:id)
     header
     body
+    font_families.update('Helvetica' => {
+        :normal => "#{Rails.root.to_s}/app/pdfs/Helvetica.ttf",
+        :bold => "#{Rails.root.to_s}/app/pdfs/Helvetica_bold.ttf",
+        :italic => "#{Rails.root.to_s}/app/pdfs/Helvetica_italic.ttf",
+    })
   end
 
 
@@ -23,10 +28,13 @@ class FichesemestrePdf < Prawn::Document
     bounding_box([0,cursor], width: bounds.width) do
        move_down(5)
        indent(10) do
-         @ues.each_with_index do |ue, compteur|
+         page_start = 2
+         @ues.each do |ue|
            y = cursor
-          text ue.titre.to_s , size: 13, style: :bold, :align => :left
-          draw_text "p#{3 * compteur + 2} - #{3 * compteur + 2 + ue.cours.count}", style: :italic, size: 13, :at => [bounds.right - 45, y + 5]
+          text  ue.acronyme.to_s + " - " +ue.titre.to_s , size: 13, style: :bold, :align => :left
+           temp = page_start + ue.cours.count
+          draw_text "p#{page_start} - #{temp}", style: :italic, size: 13, :at => [bounds.right - 45, y + 5]
+           page_start = temp + 1
         end
        end
        move_down(5)

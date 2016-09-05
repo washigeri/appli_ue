@@ -1,55 +1,78 @@
-<h1>Liste des Modules</h1>
-<%= bootstrap_form_tag method: 'get' do %>
-    <% Semestre.order(:numero).each do |s| %>
-        <h6><%= s.numero %></h6>
-        <% s.ues.order(:titre).each do |u| %>
-        <%= check_box_tag("ues[]", u.id ) %>
-        <%= u.titre %>
-    <% end %>
-     <% end %>
-    <%= submit_tag 'Appliquer' %>
-<%end %>
+<% content_for :filter_side do %>
+    <div class="panel panel-info">
+      <div class="panel-heading">
+        <h3 class="panel-title">Filtres</h3>
+      </div>
+      <div class="panel-body">
+        <%= bootstrap_form_tag method: 'get' do |f| %>
+          <div class="form-group">
+            <label class="control-label"><h4><strong>UE</strong></h4></label><br>
+            <% Semestre.year(@year).order(:numero).each do |s| %>
+              <div class="form-group">
+                <label class="control-label"><%= s.numero %></label><br>
+                  <% s.ues.order(:acronyme).each do |ue| %>
+                    <%= check_box_tag('ues[]', ue.id, params_present(:ues, @filters, ue.id)) %>
+                    <%= ue.acronyme %><br>
+                  <% end %>
+              </div>
+              <% end %>
+          </div>
+          <div class="form-group">
+            <label class="control-label"><h4><strong>Genre</strong></h4></label>
+            <br>
+            <% Genre.order(:value).each do |genre| %>
+              <%= check_box_tag('genres[]', genre.value, params_present(:genres, @filters, genre.value)) %>
+              <%= genre.value %><br>
+            <% end %>
+          </div>
+          <br>
+          <%= f.submit 'Appliquer', class: "btn btn-default btn-sm" %>
+        <% end %>
+      </div>
+    </div>
+<% end %>
 
-<table>
-  <thead>
+<div class="panel panel-success">
+  <div class="panel-heading">
+    <h1 class="panel-title">Liste des Modules</h1>
+  </div>
+  <table class="table table-hover table-responsive">
+    <thead>
     <tr>
+      <th>Semestre</th>
       <th>UE</th>
       <th>Titre</th>
       <th>Objectif</th>
-      <th>Contenu</th>
-      <th>Type</th>
-      <th>Découpage</th>
-      <th>Éval.1</th>
-      <th>Éval.2</th>
+      <th>Genre</th>
+      <th>Evaluation 1</th>
       <th>Coefficient</th>
-      <th>Crédits ECTS</th>
-      <th>Bibliographie</th>
-      <th colspan="3"></th>
+      <th>ECTS</th>
+      <th colspan="3">Actions</th>
     </tr>
-  </thead>
+    </thead>
 
-  <tbody>
+    <tbody>
     <% @cours.each do |cour| %>
-      <tr>
-        <td><%= link_to cour.ue.titre, cour.ue %></td>
-        <td><%= cour.titre %></td>
-        <td><%= cour.objectif %></td>
-        <td><%= cour.contenu %></td>
-        <td><%= cour.genre %></td>
-        <td><%= cour.decoupage %></td>
-        <td><%= cour.evaluation1 %></td>
-        <td><%= cour.evaluation2 %></td>
-        <td><%= cour.coeff %></td>
-        <td><%= cour.ects %></td>
-        <td><%= cour.bibliographie %></td>
-        <td><%= link_to 'Voir', cour %></td>
-        <td><%= link_to 'Éditer', edit_admin_cour_path(cour) %></td>
-        <td><%= link_to 'Supprimer', [:admin, cour], method: :delete, data: { confirm: 'Êtes-vous sûr ?' } %></td>
-      </tr>
+        <tr>
+          <td><%= link_to cour.ue.semestre.numero ,semestre_path(cour.ue.semestre), class: "btn btn-primary btn-sm"  %></td>
+          <td><%= cour.ue.acronyme %></td>
+          <td><%= cour.titre.truncate(20, :separator => ' ') %></td>
+          <td><%= cour.objectif.truncate(20, :separator => ' ') %></td>
+          <td><%= cour.genre.truncate(30, :separator => ' ') %></td>
+          <td><%= cour.evaluation1.truncate(30, :separator => ' ') %></td>
+          <td><%= number_to_human(cour.coeff) %></td>
+          <td><%= cour.ects %></td>
+          <td><%= link_to 'Voir', cour, class: "btn btn-info btn-sm" %></td>
+          <td><%= link_to 'Éditer', edit_admin_cour_path(cour), class: "btn btn-warning btn-sm" %></td>
+          <td><%= link_to 'Supprimer', [:admin, cour] , method: :delete, data: { confirm: 'Êtes-vous sûr ?' }, class: "btn btn-danger btn-sm" %></td>
+        </tr>
     <% end %>
-  </tbody>
-</table>
+    </tbody>
+  </table>
+  <%= will_paginate @cours,  renderer: BootstrapPagination::Rails %>
+</div>
 
 <br>
 
-<%= link_to 'Nouveau Module', new_admin_cour_path %>
+<%= link_to 'Nouveau Module', new_admin_cour_path, class: "btn btn-success" %>
+<%= link_to 'Retour', ues_path, class: "btn btn-danger" %>
