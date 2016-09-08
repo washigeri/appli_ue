@@ -18,3 +18,4 @@
 .rake_tasks~
 .idea/runConfigurations/
 .idea
+/config/secrets.yml
