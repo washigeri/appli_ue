@@ -7,3 +7,5 @@
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
 Year.create(value: "#{Time.now.year}-#{Time.now.year + 1}")
+Genre.create([{value: "Informatique"},{value: "Mathématique"},{value: "Économie"}, {value: "Formation Humaine"}])
+Lieu.create([{value: "Evry"}, {value: "Strasbourg"}, {value: "Evry + Strasbourg"}])
