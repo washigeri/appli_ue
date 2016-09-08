@@ -53,42 +53,47 @@
     <div class="panel-heading">
       <h1 class="panel-title">Liste des Unités d'Enseigement (UE)</h1>
     </div>
-<table class="table table-hover table-responsive">
-  <thead>
-    <tr>
-      <th>Semestre</th>
-      <th>Acronyme</th>
-      <th>Titre</th>
-      <th>Objectif</th>
-      <th>Prérequis</th>
-      <th>Lieu</th>
-      <th>ECTS</th>
-      <th colspan="4">Actions</th>
-    </tr>
-  </thead>
+    <table class="table table-hover table-responsive">
+      <thead>
+        <tr>
+          <th>Semestre</th>
+          <th>Acronyme</th>
+          <th>Titre</th>
+          <th>Objectif</th>
+          <th>Prérequis</th>
+          <th>Lieu</th>
+          <th>ECTS</th>
+          <th colspan="4">Actions</th>
+        </tr>
+      </thead>
 
-  <tbody>
-    <% @ues.each do |ue| %>
-      <tr>
-        <td><%= link_to ue.semestre.numero , ue.semestre, class: "btn btn-primary btn-sm"  %></td>
-        <td><%= ue.acronyme %></td>
-        <td><%= ue.titre.truncate(20, :separator => ' ') %></td>
-        <td><%= ue.objectif.truncate(80, :separator => ' ') %></td>
-        <td><%= ue.prerequis %></td>
-        <td><%= ue.lieu %></td>
-        <td><%= ue.ects_c %></td>
-        <td><%= link_to 'PDF', ue_path(ue, format: 'pdf'), class: 'btn btn-sm btn-primary' %></td>
-        <td><%= link_to 'Voir', ue, class: "btn btn-info btn-sm" %></td>
-        <td><%= link_to 'Éditer', edit_admin_ue_path(ue), class: "btn btn-warning btn-sm" %></td>
-        <td><%= link_to 'Supprimer', [:admin, ue] , method: :delete, data: { confirm: 'Êtes-vous sûr ?' }, class: "btn btn-danger btn-sm" %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-<%= will_paginate @ues,  renderer: BootstrapPagination::Rails %>
+      <tbody>
+        <% @ues.each do |ue| %>
+          <tr>
+            <td><%= link_to ue.semestre.numero , ue.semestre, class: "btn btn-primary btn-sm"  %></td>
+            <td><%= ue.acronyme %></td>
+            <td><%= ue.titre.truncate(20, :separator => ' ') %></td>
+            <td><%= ue.objectif.truncate(80, :separator => ' ') %></td>
+            <td><%= ue.prerequis %></td>
+            <td><%= ue.lieu %></td>
+            <td><%= ue.ects_c %></td>
+            <td><%= link_to 'PDF', ue_path(ue, format: 'pdf'), class: 'btn btn-sm btn-primary' %></td>
+            <td><%= link_to 'Voir', ue, class: "btn btn-info btn-sm" %></td>
+            <td><%= link_to 'Éditer', edit_admin_ue_path(ue), class: "btn btn-warning btn-sm" %></td>
+            <td><%= link_to 'Supprimer', [:admin, ue] , method: :delete, data: { confirm: 'Êtes-vous sûr ?' }, class: "btn btn-danger btn-sm" %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+    <div class="panel-footer clearfix">
+      <div class="pull-left">
+        <%= will_paginate @ues,  renderer: BootstrapPagination::Rails %>
+      </div>
+      <div class="pull-right">
+        <%= link_to 'Nouvelle UE', new_admin_ue_path, class: "btn btn-success" %>
+        <%= link_to 'Retour', semestres_path, class: "btn btn-danger" %>
+      </div>
+    </div>
 </div>
 
-<br>
 
-<%= link_to 'Nouvelle UE', new_admin_ue_path, class: "btn btn-success" %>
-<%= link_to 'Retour', semestres_path, class: "btn btn-danger" %>

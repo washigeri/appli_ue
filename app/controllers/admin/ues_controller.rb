@@ -1,4 +1,4 @@
-class Admin::UesController < ApplicationController
+class Admin::UesController < AdminController
   before_action :set_ue, only: [ :edit, :update, :destroy]
   before_action :all_ues, only: [:index, :create, :update, :destroy]
 

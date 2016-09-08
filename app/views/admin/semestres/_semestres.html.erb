@@ -16,7 +16,7 @@
         <td><%= semestre.ues.count %></td>
         <td><%= semestre.year.value.humanize %></td>
         <td><%= link_to 'PDF', semestre_path(semestre, format: 'pdf'), class: 'btn btn-primary btn-sm' %></td>
-        <td> <%= link_to "Editer", edit_admin_semestre_path(semestre), remote: true , class:"btn btn-warning btn-sm" %></td>
+        <td> <%= link_to "Éditer", edit_admin_semestre_path(semestre), remote: true , class:"btn btn-warning btn-sm" %></td>
         <td><%= link_to "Supprimer", [:admin, semestre], remote: true, method: :delete, data: {confirm: "Êtes-vous sûr ?"}, class: "btn btn-sm btn-danger" %></td>
       </tr>
   <% end %>

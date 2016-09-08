@@ -20,7 +20,7 @@ class Ue < ActiveRecord::Base
     temp
   end
 
-  scope :year, -> (year) { where('semestre_id IN (?)', year.semestres.map(&:id)) }
+  scope :year, -> (year) { where('semestre_id IN (?)', Year.find(year['id']).semestres.map(&:id)) }
 
   scope :filtre_semestre, -> (semestre_ids) { where('semestre_id IN (?) ', semestre_ids) }
   scope :filtre_lieu, -> (lieu) { where('lieu IN (?)', lieu) }

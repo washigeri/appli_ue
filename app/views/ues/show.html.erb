@@ -1,36 +1,100 @@
-<p>
-  <strong>Semestre:</strong>
-  <%= @ue.semestre.numero %>
-</p>
-<p>
-  <strong>Titre:</strong>
-  <%= @ue.titre %>
-</p>
+<div class="panel panel-info">
+  <div class="panel-heading">
+    <h1 class="panel-title">Unité d'enseignement : <%=@ue.acronyme + "-" + @ue.titre  %></h1>
+  </div>
+  <div class="panel-body">
+    <p>
+      <strong>Semestre : </strong>
+      <%= link_to @ue.semestre.numero , semestre_path(@ue.semestre) %>
+    </p>
+    <p>
+      <strong>Titre :</strong>
+      <%= @ue.acronyme + "-" + @ue.titre %>
+    </p>
+    <p>
+      <strong>Objectif :</strong>
+      <%= @ue.objectif %>
+    </p>
+    <p>
+      <strong>Lieu :</strong>
+      <%= @ue.lieu %>
+    </p>
+    <p>
+      <strong>Prérequis :</strong>
+      <%= @ue.prerequis %>
+    </p>
+    <p>
+      <strong>Crédits ECTS :</strong>
+      <%= @ue.ects_c %>
+    </p>
+    <p>
+      <strong>Professeur responsable :</strong>
+      <i>Pas encore implémenté</i>
+    </p>
+  </div>
+  <% if @ue.cours.any? %>
+  <div class="panel-footer clearfix">
+    <div class="panel-group">
+      <% @ue.cours.order(:titre).each_with_index do |c, i| %>
+          <br>
+        <div class="panel panel-success">
+          <div class="panel-heading">
+            <h2 class="panel-title"><a data-toggle="collapse" href="#collapse<%= i %>"><%= "Module #{i + 1} : #{c.titre}"%></a></h2>
+          </div>
+          <div id="collapse<%= i %>" class="panel-collapse collapse in">
+            <div class="panel-body">
+              <p>
+                <strong>Objectif : </strong>
+                <%= c.objectif %>
+              </p>
+              <p>
+                <strong>Contenu : </strong>
+                <%= c.contenu %>
+              </p>
+              <p>
+                <strong>Type : </strong>
+                <%= c.genre %>
+              </p>
+              <p>
+                <strong>Découpage: </strong>
+                <%= c.decoupage %>
+              </p>
+              <p>
+                <strong>Évaluation 1 : </strong>
+                <%= c.evaluation1 %>
+              </p>
+              <p>
+                <strong>Évaluation 2 : </strong>
+                <%= c.evaluation2 %>
+              </p>
+              <p>
+                <strong>Coefficient : </strong>
+                <%= number_to_human(c.coeff) %>
+              </p>
+              <p>
+                <strong>Crédits ECTS : </strong>
+                <%= c.ects %>
+              </p>
+              <p>
+                <strong>Bibliographie : </strong>
+                <%= c.bibliographie %>
+              </p>
+            </div>
+            <div class="panel-footer clearfix">
+              <div class="pull-right">
+                <%= link_to 'Voir', cour_path(c), class: 'btn btn-info' %>
+              </div>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+  <% end %>
+</div>
 
-<p>
-  <strong>Objectif:</strong>
-  <%= @ue.objectif %>
-</p>
 
 
-
-<p>
-  <strong>Prérequis:</strong>
-  <%= @ue.prerequis %>
-</p>
-
-<p>
-  <strong>Lieu:</strong>
-  <%= @ue.lieu %>
-</p>
-
-<p>
-  <strong>ECTS de l'UE:</strong>
-  <%= @ue.ects_c %>
-</p>
-<br>
 <%= link_to "PDF", ue_path(@ue, :format => 'pdf'), class: 'btn btn-primary' %>
-
-
-<%= link_to 'Éditer', edit_admin_ue_path(@ue) %> |
-<%= link_to 'Retour', ues_path %>
+<%= link_to 'Éditer', edit_admin_ue_path(@ue), class: 'btn btn-warning' %>
+<%= link_to 'Retour', ues_path, class: 'btn btn-danger' %>

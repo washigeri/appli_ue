@@ -22,7 +22,7 @@
         <td><%= ue.lieu %></td>
         <td><%= ue.cours.count %></td>
         <td><%= link_to 'PDF', ue_path(ue, format: 'pdf'), class: 'btn btn-primary btn-sm' %></td>
-        <td> <%= link_to "Editer", edit_admin_ue_path(ue), remote: true , class:"btn btn-warning btn-sm" %></td>
+        <td> <%= link_to "Éditer", edit_admin_ue_path(ue), remote: true , class:"btn btn-warning btn-sm" %></td>
         <td><%= link_to "Supprimer", [:admin, ue], remote: true, method: :delete, data: {confirm: "Êtes-vous sûr ?"}, class: "btn btn-sm btn-danger" %></td>
       </tr>
   <% end %>

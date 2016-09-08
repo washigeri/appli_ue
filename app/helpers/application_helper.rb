@@ -49,4 +49,12 @@ module ApplicationHelper
 
   end
 
+  def is_in_year(year1, year2)
+    date1 = Date.new(year1.to_i,9,1)
+    date2 = Date.new(year2.to_i,8,31)
+    c = Time.now
+    (c > date1 and c < date2)
+  end
+
+
 end

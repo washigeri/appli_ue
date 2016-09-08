@@ -11,7 +11,7 @@
     </div>
   <% end %>
     <div class="field">
-      <%= f.collection_select(:ue_id, Ue.year(@year), :id, :titre) %>
+      <%= f.collection_select(:ue_id, Ue.year(@year), :id, :acronyme) %>
     </div>
   <div class="field">
     <%= f.text_field :titre %>

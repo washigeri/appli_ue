@@ -17,7 +17,7 @@ class Admin::YearsController < AdminController
   end
 
   def create
-    if year_params[:copy]
+    if year_params[:copy] == 1
       @year = Year.find(year_params[:copy_from]).amoeba_dup
       @year.value = year_params[:value]
     else

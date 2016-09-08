@@ -2,7 +2,7 @@
   <div class="panel-heading">
     <button type="button" class="close" data-target="#form_panel" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Fermer</span>
     </button>
-    <h3 class="panel-title"><%= action_name == 'new' ? 'Nouveau ' : 'Edition de ' %>Module</h3>
+    <h3 class="panel-title"><%= action_name == 'new' ? 'Nouveau ' : 'Édition de ' %>Module</h3>
   </div>
   <div class="panel panel-body">
       <%= bootstrap_form_for([:admin,@cour] , label_errors: true, remote: true) do |f| %>

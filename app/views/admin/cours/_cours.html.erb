@@ -23,7 +23,7 @@
         <td><%= cour.ects %></td>
         <td><%= cour.genre %></td>
         <td><%= number_to_human(cour.coeff) %></td>
-        <td> <%= link_to "Editer", edit_admin_cour_path(cour), remote: true , class:"btn btn-warning btn-sm" %></td>
+        <td> <%= link_to "Éditer", edit_admin_cour_path(cour), remote: true , class:"btn btn-warning btn-sm" %></td>
         <td><%= link_to "Supprimer", [:admin, cour], remote: true, method: :delete, data: {confirm: "Êtes-vous sûr ?"}, class: "btn btn-sm btn-danger" %></td>
       </tr>
   <% end %>

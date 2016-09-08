@@ -1,51 +1,59 @@
-<p>
-  <strong>Titre:</strong>
-  <%= @cour.titre %>
-</p>
-<p>
-  <strong>UE:</strong>
-  <%= @cour.ue.titre %>
-</p>
+<div class="panel panel-primary">
+  <div class="panel-heading">
+    <h1 class="panel-title"><%= "Module : #{@cour.titre.humanize}" %></h1>
+  </div>
+  <div class="panel-body">
+    <p>
+      <strong>UE :</strong>
+      <%= "#{@cour.ue.acronyme}-#{@cour.ue.titre}" %>
+    </p>
 
-<p>
-  <strong>Objectif:</strong>
-  <%= @cour.objectif %>
-</p>
+    <p>
+      <strong>Objectif :</strong>
+      <%= @cour.objectif %>
+    </p>
 
-<p>
-  <strong>Contenu:</strong>
-  <%= @cour.contenu %>
-</p>
+    <p>
+      <strong>Contenu :</strong>
+      <%= @cour.contenu %>
+    </p>
 
-<p>
-  <strong>Type:</strong>
-  <%= @cour.genre %>
-</p>
-<p>
-  <strong>Découpage:</strong>
-  <%= @cour.decoupage %>
-</p>
-<p>
-  <strong>Évaluation 1:</strong>
-  <%= @cour.evaluation1 %>
-</p>
-<p>
-  <strong>Évaluation 2:</strong>
-  <%= @cour.evaluation2 %>
-</p>
-<p>
-  <strong>Coefficient:</strong>
-  <%= @cour.coeff %>
-</p>
-<p>
-  <strong>Crédits ECTS:</strong>
-  <%= @cour.ects %>
-</p>
-<p>
-  <strong>Bibliographie:</strong>
-  <%= @cour.bibliographie %>
-</p>
+    <p>
+      <strong>Type :</strong>
+      <%= @cour.genre %>
+    </p>
+    <p>
+      <strong>Découpage :</strong>
+      <%= @cour.decoupage %>
+    </p>
+    <p>
+      <strong>Évaluation 1 :</strong>
+      <%= @cour.evaluation1 %>
+    </p>
+    <p>
+      <strong>Évaluation 2 :</strong>
+      <%= @cour.evaluation2 %>
+    </p>
+    <p>
+      <strong>Coefficient : </strong>
+      <%= number_to_human(@cour.coeff) %>
+    </p>
+    <p>
+      <strong>Crédits ECTS :</strong>
+      <%= @cour.ects %>
+    </p>
+    <p>
+      <strong>Bibliographie :</strong>
+      <%= @cour.bibliographie %>
+    </p>
+  </div>
+  <div class="panel-footer clearfix">
+    <div class="pull-right">
+      <%= link_to 'Éditer', edit_admin_cour_path(@cour), class: 'btn btn-warning' %>
+      <%= link_to 'Retour', cours_path, class: 'btn btn-danger' %>
+    </div>
+  </div>
+</div>
 
 
-<%= link_to 'Éditer', edit_admin_cour_path(@cour) %> |
-<%= link_to 'Retour', cours_path %>
+

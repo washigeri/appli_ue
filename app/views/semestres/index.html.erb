@@ -1,28 +1,31 @@
-
-<h1>Liste des Semestres</h1>
-
-
-<table class="table table-responsive table-hover table-bordered">
-  <thead>
-    <tr>
-      <th>Semestre</th>
-      <th colspan="3">Actions</th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @semestres.each do |semestre| %>
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h1 class="panel-title">Liste des Semestres</h1>
+  </div>
+  <table class="table table-responsive table-hover">
+    <thead>
       <tr>
-        <td><%= semestre.numero %></td>
-        <td><%= link_to 'Voir', semestre %></td>
-
-        <td><%= link_to 'Éditer', edit_admin_semestre_path(semestre) %></td>
-        <td><%= link_to 'Supprimer', [ :admin, semestre ], method: :delete, data: { confirm: 'Êtes-vous sur ?' } %></td>
+        <th>Semestre</th>
+        <th>Nombre d'UEs<th>
+        <th colspan="2">Actions</th>
       </tr>
-    <% end %>
-  </tbody>
-</table>
+    </thead>
 
-<br>
+    <tbody>
+      <% @semestres.each do |semestre| %>
+        <tr>
+          <td><%= semestre.numero %></td>
+          <td><%= semestre.ues.count %></td>
+          <td><%= link_to 'PDF', semestre_path(semestre, format: 'pdf'), class: 'btn btn-primary' %></td>
+          <td><%= link_to 'Voir', semestre, class: 'btn btn-info' %></td>
+          <td><%= link_to 'Éditer', edit_admin_semestre_path(semestre), class: 'btn btn-warning' %></td>
+          <td><%= link_to 'Supprimer', [ :admin, semestre ], method: :delete, data: { confirm: 'Êtes-vous sur ?' }, class: 'btn btn-danger' %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
 
-<%= link_to 'Nouveau Semestre', new_admin_semestre_path %>
+  <div class="panel-footer clearfix">
+    <%= link_to 'Nouveau Semestre', new_admin_semestre_path, class: 'btn btn-success'%>
+  </div>
+</div>

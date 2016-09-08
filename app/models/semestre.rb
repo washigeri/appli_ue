@@ -8,7 +8,7 @@ class Semestre < ActiveRecord::Base
   validates_uniqueness_of :numero, :scope => :year_id, :message => "%{value} existe déjà pour cette année"
 
 
-  scope :year, -> (year_id) { where('year_id = ?', year_id )}
+  scope :year, -> (year) { where('year_id = ?', year["id"] )}
 
   amoeba do
     enable

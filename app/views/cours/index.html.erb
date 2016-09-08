@@ -69,10 +69,13 @@
     <% end %>
     </tbody>
   </table>
-  <%= will_paginate @cours,  renderer: BootstrapPagination::Rails %>
+  <div class="panel-footer clearfix">
+    <%= will_paginate @cours,  renderer: BootstrapPagination::Rails %>
+    <div class="pull-right">
+      <%= link_to 'Nouveau Module', new_admin_cour_path, class: "btn btn-success" %>
+      <%= link_to 'Retour', ues_path, class: "btn btn-danger" %>
+    </div>
+  </div>
+
 </div>
 
-<br>
-
-<%= link_to 'Nouveau Module', new_admin_cour_path, class: "btn btn-success" %>
-<%= link_to 'Retour', ues_path, class: "btn btn-danger" %>

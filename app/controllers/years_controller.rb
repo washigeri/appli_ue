@@ -1,9 +1,7 @@
 class YearsController < ApplicationController
   def set_year
     if params[:year].present? and not params[:year].nil?
-      session[:year] = params[:year]
-    else
-      session[:year] = Year.all.first.id
+      cookies.encrypted.permanent[:year] = Year.find(params[:year])
     end
     respond_to do |format|
       format.js

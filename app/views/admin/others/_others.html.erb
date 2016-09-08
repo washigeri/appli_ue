@@ -14,7 +14,7 @@
         <td><%= other.type %></td>
         <td><%= other.value %></td>
         <td><%= link_to "Voir tous les #{other.type.pluralize}", sti_other_path(other.type), remote: true, class: "btn btn-info" %></td>
-        <td><%= link_to "Editer", sti_other_path(other.type, other, :edit), remote: true, class: "btn btn-warning" %></td>
+        <td><%= link_to "Éditer", sti_other_path(other.type, other, :edit), remote: true, class: "btn btn-warning" %></td>
         <td><%= link_to "Supprimer", sti_other_path(other.type, other), method: :delete, data: {confirm: "Êtes-vous sûr ?"}, remote: true, class: "btn btn-danger"%></td>
       </tr>
   <% end %>

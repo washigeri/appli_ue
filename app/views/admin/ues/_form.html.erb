@@ -12,7 +12,7 @@
   <% end %>
 
     <div class="field">
-      <%= f.collection_select(:semestre_id,  Semestre.year(session[:year]), :id, :numero) %>
+      <%= f.collection_select(:semestre_id,  Semestre.year(@year), :id, :numero) %>
     </div>
 
   <%= f.text_field :acronyme, help: "Ex: 'MAN', 'MOM', 'OSS', ..." %>

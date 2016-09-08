@@ -5,7 +5,7 @@
     <th>Année scolaire</th>
     <th>Nombre d'UEs</th>
     <th>Nombre de modules</th>
-    <th>Etat de Copie</th>
+    <th>État de Copie</th>
     <th colspan="3">Actions</th>
   </tr>
   </thead>
@@ -26,7 +26,7 @@
       <td><%= countmodule %></td>
       <td><%= year.copy ? Year.find(year.copy_from).value.humanize : 'Original'%></td>
       <td><%= link_to "PDF", year_path(year, format: 'pdf'), class: "btn btn-primary btn-sm" %></td>
-      <td> <%= link_to "Editer", edit_admin_year_path(year), remote: true , class:"btn btn-warning btn-sm" %></td>
+      <td> <%= link_to "Éditer", edit_admin_year_path(year), remote: true , class:"btn btn-warning btn-sm" %></td>
       <td><%= link_to "Supprimer", [:admin, year], remote: true, method: :delete, data: {confirm: "Êtes-vous sûr ?"}, class: "btn btn-sm btn-danger" %></td>
     </tr>
    <% end %>

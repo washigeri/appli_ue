@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  devise_for :admins
   get 'set_year' => 'years#set_year', as: 'set_year'
   get '/admin' => 'admin#admin', as: 'admin'
   resources :years, only: :show

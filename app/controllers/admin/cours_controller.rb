@@ -1,4 +1,4 @@
-class Admin::CoursController < ApplicationController
+class Admin::CoursController < AdminController
   before_action :set_cour, only: [:edit, :update, :destroy]
   before_action :all_cour, only: [:index, :create, :update, :destroy]
 

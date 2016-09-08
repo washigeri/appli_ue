@@ -1,29 +1,46 @@
-<p>
-  <strong>Semestre:</strong>
-  <%= @semestre.numero %>
-</p>
-<h5>UEs:</h5>
-<table>
-  <thead>
-  <tr>
-    <th>Titre</th>
-    <th>Objectif</th>
-    <th>Lieu</th>
-    <th>Prérequis</th>
-    <th colspan="3"></th>
-  </tr>
-  </thead>
-  <tbody>
-  <% @semestre.ues.order(:titre).each do |ue| %>
-    <tr>
-      <td><%= ue.titre %></td>
-      <td><%= ue.objectif %></td>
-      <td><%= ue.prerequis %></td>
-      <td><%= ue.lieu %></td>
-    </tr>
-  </tbody>
-    <% end %>
-</table>
-<%= link_to 'Éditer', edit_admin_semestre_path(@semestre) %> |
-<%= link_to 'Retour', semestres_path %>
-<%= link_to 'PDF', semestre_path(@semestre, :format => 'pdf'), class: 'btn btn-primary' %>
+<div class="panel panel-info">
+  <div class="panel-heading">
+    <h1 class="panel-title">Semestre <%= @semestre.numero.last %></h1>
+  </div>
+  <div class="panel-body">
+    <p>
+      Ce semestre comporte <%= pluralize(@semestre.ues.count,'Unité') %> d'Enseignement.
+    </p>
+  </div>
+  <table class="table table-hover table-responsive">
+    <thead>
+      <tr>
+        <th>Acronyme</th>
+        <th>Titre</th>
+        <th>Objectif</th>
+        <th>Prérequis</th>
+        <th>Lieu</th>
+        <th>ECTS</th>
+        <th>Nombre de cours</th>
+        <th colspan="2">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @semestre.ues.each do |ue| %>
+      <tr>
+        <td><%= ue.acronyme %></td>
+        <td><%= ue.titre.truncate(20, :separator => ' ') %></td>
+        <td><%= ue.objectif.truncate(80, :separator => ' ') %></td>
+        <td><%= ue.prerequis %></td>
+        <td><%= ue.lieu %></td>
+        <td><%= ue.ects_c %></td>
+        <td><%= ue.cours.count %></td>
+        <td><%= link_to 'PDF', ue_path(ue, format: 'pdf'), class: 'btn btn-primary' %></td>
+        <td><%= link_to 'Voir', ue_path(ue), class: 'btn btn-info' %></td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+  <div class="panel-footer clearfix">
+    <div class="pull-right">
+      <%= link_to 'PDF', semestre_path(@semestre, :format => 'pdf'), class: 'btn btn-primary' %>
+      <%= link_to 'Éditer', edit_admin_semestre_path(@semestre), class: 'btn btn-warning' %>
+      <%= link_to 'Retour', semestres_path, class: 'btn btn-danger' %>
+    </div>
+  </div>
+</div>
