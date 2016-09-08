@@ -85,7 +85,6 @@ production:
   database: appli_ue
   username: appli_ue
   password: <%= ENV['APPLI_UE_DATABASE_PASSWORD'] %>
-  host: localhost
   pool: 5
   encoding: unicode
-  protocol: md5
+  protocol: peer
