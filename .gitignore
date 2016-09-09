@@ -19,3 +19,10 @@
 .idea/runConfigurations/
 .idea
 /config/secrets.yml
+/Capfile
+/config/deploy.rb
+/config/deploy/production.rb
+/lib/capistrano/tasks/
+/config/database.yml
+/config/deploy/staging.rb
+/lib/capistrano/

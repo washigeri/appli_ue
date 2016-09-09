@@ -15,7 +15,7 @@
   <div class="field">
     <%= f.text_field :numero , label: 'Semestre'%>
   </div>
-    <%= f.hidden_field(:year_id, :value => @year) %>
+    <%= f.hidden_field(:year_id, :value => @year.id) %>
   <div class="actions">
     <%= f.submit "Valider" %>
   </div>

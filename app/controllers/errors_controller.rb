@@ -1,4 +1,5 @@
 class ErrorsController < ApplicationController
+  include ApplicationHelper
   def not_found
     render(:status => :not_found, :file => 'public/404.html')
   end

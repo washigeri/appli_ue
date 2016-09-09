@@ -9,15 +9,16 @@ class ApplicationController < ActionController::Base
   private
 
   def set_year_global
-    cookies.signed_or_encrypted[:year] ? @year = cookies.signed_or_encrypted[:year] : @year = get_current_year
+    cookies.signed_or_encrypted[:year_id] ? year_id = cookies.signed_or_encrypted[:year_id] : year_id = get_current_year
+    @year = Year.find(year_id)
   end
 
   def get_current_year
     Year.all.each do |y|
       temp = y.value.split(/-/)
       if is_in_year(temp[0],temp[1])
-        cookies.signed_or_encrypted.permanent[:year] = y
-        return y
+        cookies.signed_or_encrypted.permanent[:year_id] = y.id
+        return y.id
       end
     end
   end

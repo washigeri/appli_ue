@@ -36,7 +36,7 @@
       <%= navbar_group align: 'right' do %>
             <%= navbar_text admin_signed_in? ? "Connecté : " + current_admin.email.to_s : "" %>
             <%= form_tag(set_year_path, {class: "navbar-form navbar-left", method: "get", remote: true}) do %>
-                    <%= select_tag "year", options_from_collection_for_select(Year.all.order(:value), :id, :value, :selected => @year["id"]), class: "form-control" %>
+                    <%= select_tag "year", options_from_collection_for_select(Year.all.order(:value), :id, :value, :selected => @year), class: "form-control" %>
                   <%= submit_tag "Valider", class:"btn btn-default", :name => nil %>
             <% end %>
           <% if admin_signed_in? %>
@@ -80,8 +80,6 @@
         </div>
     <% end %>
   </div>
-  <% if Rails.env.development? %>
-  <% end %>
 </div>
 </body>
 </html>
