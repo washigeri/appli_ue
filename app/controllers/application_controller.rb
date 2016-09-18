@@ -10,7 +10,12 @@ class ApplicationController < ActionController::Base
 
   def set_year_global
     cookies.signed_or_encrypted[:year_id] ? year_id = cookies.signed_or_encrypted[:year_id] : year_id = get_current_year
-    @year = Year.find(year_id)
+    if Year.exists?(id: year_id)
+      @year = Year.find(year_id)
+    else
+      @year = Year.first
+      cookies.signed_or_encrypted.permanent[:year_id] = @year.id
+    end
   end
 
   def get_current_year

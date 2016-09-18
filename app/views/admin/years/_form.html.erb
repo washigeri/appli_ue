@@ -13,7 +13,7 @@
                 <%= f.form_group :copy, label: {text: "Copie depuis une année existante"} do %>
                     <%= f.check_box :copy, label: "Copier depuis une année existante" %>
                 <% end %>
-                <%= f.collection_select(:copy_from, Year.all, :id, :value, label: 'Source') %>
+                <%= f.collection_select(:copy_from, Year.all, :id, :value, label: 'Source', include_blank: true) %>
             <% end %>
            <%= f.submit "Valider" %>
           <% end %>

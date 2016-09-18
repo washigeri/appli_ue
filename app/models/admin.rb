@@ -10,7 +10,7 @@ class Admin < ActiveRecord::Base
   def set_allow
     emailsplit = email.split(/@/)
     if emailsplit.last == "ensiie.fr"
-      if emailsplit.first == "malek.elouerghi" or emailsplit.first == "stephane.genaud"
+      if emailsplit.first == "malek.elouerghi" or emailsplit.first == "stephane.genaud" or emailsplit.first == "nicolas.brunel"
         self.allowed = true
       end
     end
