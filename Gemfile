@@ -56,6 +56,7 @@ group :development do
   gem 'pry-rails'
   gem 'capistrano-rails'
   gem 'capistrano-passenger'
+  gem 'railroady'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
